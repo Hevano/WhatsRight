@@ -19,6 +19,7 @@
 		025AE9D9277339AF00A45ADB /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 025AE9D7277339AF00A45ADB /* Shader.vsh */; };
 		025AE9DB277339C700A45ADB /* crate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 025AE9DA277339C700A45ADB /* crate.jpg */; };
 		4FD744FF27BD84300063D85A /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD744FE27BD84300063D85A /* GameObject.swift */; };
+		4FD7450227BD96980063D85A /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD7450127BD96980063D85A /* GameObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,8 @@
 		025AE9D7277339AF00A45ADB /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
 		025AE9DA277339C700A45ADB /* crate.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = crate.jpg; sourceTree = "<group>"; };
 		4FD744FE27BD84300063D85A /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
+		4FD7450027BD92230063D85A /* GameObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
+		4FD7450127BD96980063D85A /* GameObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +90,8 @@
 				025AE9C6277337E200A45ADB /* LaunchScreen.storyboard */,
 				025AE9C9277337E200A45ADB /* Info.plist */,
 				025AE9CF2773396200A45ADB /* WhatsRight-Bridging-Header.h */,
+				4FD7450027BD92230063D85A /* GameObject.h */,
+				4FD7450127BD96980063D85A /* GameObject.m */,
 			);
 			path = WhatsRight;
 			sourceTree = "<group>";
@@ -167,6 +172,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				025AE9D52773396300A45ADB /* GLESRenderer.cpp in Sources */,
+				4FD7450227BD96980063D85A /* GameObject.m in Sources */,
 				025AE9C0277337DF00A45ADB /* ViewController.swift in Sources */,
 				4FD744FF27BD84300063D85A /* GameObject.swift in Sources */,
 				025AE9BC277337DF00A45ADB /* AppDelegate.swift in Sources */,
