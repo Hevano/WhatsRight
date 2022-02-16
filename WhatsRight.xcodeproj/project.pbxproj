@@ -18,6 +18,7 @@
 		025AE9D8277339AF00A45ADB /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 025AE9D6277339AE00A45ADB /* Shader.fsh */; };
 		025AE9D9277339AF00A45ADB /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 025AE9D7277339AF00A45ADB /* Shader.vsh */; };
 		025AE9DB277339C700A45ADB /* crate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 025AE9DA277339C700A45ADB /* crate.jpg */; };
+		4FD744FF27BD84300063D85A /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD744FE27BD84300063D85A /* GameObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		025AE9D6277339AE00A45ADB /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
 		025AE9D7277339AF00A45ADB /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
 		025AE9DA277339C700A45ADB /* crate.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = crate.jpg; sourceTree = "<group>"; };
+		4FD744FE27BD84300063D85A /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 		025AE9AF277337DF00A45ADB = {
 			isa = PBXGroup;
 			children = (
+				4FD744FE27BD84300063D85A /* GameObject.swift */,
 				025AE9BA277337DF00A45ADB /* WhatsRight */,
 				025AE9B9277337DF00A45ADB /* Products */,
 			);
@@ -165,6 +168,7 @@
 			files = (
 				025AE9D52773396300A45ADB /* GLESRenderer.cpp in Sources */,
 				025AE9C0277337DF00A45ADB /* ViewController.swift in Sources */,
+				4FD744FF27BD84300063D85A /* GameObject.swift in Sources */,
 				025AE9BC277337DF00A45ADB /* AppDelegate.swift in Sources */,
 				025AE9D42773396300A45ADB /* Renderer.mm in Sources */,
 				025AE9BE277337DF00A45ADB /* SceneDelegate.swift in Sources */,
@@ -319,7 +323,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = c8051SwiftGL/Info.plist;
+				INFOPLIST_FILE = WhatsRight/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -330,10 +334,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ca.btechgames.c8051SwiftGL;
+				PRODUCT_BUNDLE_IDENTIFIER = ca.btechgames.WhatsRight;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "c8051SwiftGL/c8051SwiftGL-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "WhatsRight/WhatsRight-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -349,7 +353,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = c8051SwiftGL/Info.plist;
+				INFOPLIST_FILE = WhatsRight/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -360,10 +364,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ca.btechgames.c8051SwiftGL;
+				PRODUCT_BUNDLE_IDENTIFIER = ca.btechgames.WhatsRight;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "c8051SwiftGL/c8051SwiftGL-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "WhatsRight/WhatsRight-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
