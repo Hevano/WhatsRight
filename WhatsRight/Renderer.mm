@@ -70,6 +70,10 @@ enum
 @synthesize position;
 
 @synthesize panRotation;
+
+@synthesize transX;
+@synthesize transY;
+
 - (void)dealloc
 {
     glDeleteProgram(programObject);
@@ -102,6 +106,8 @@ enum
     zoom = -5.0f;
     isRotating = 1;
     reset = false;
+    transX = 0.0f;
+    transY = 0.0f;
 
     // ### you should also load any textures needed here (you can use the setupTexture method below to load in a JPEG image and assign it to a GL texture)
     crateTexture = [self setupTexture:@"crate.jpg"];
