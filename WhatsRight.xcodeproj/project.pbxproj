@@ -18,7 +18,6 @@
 		025AE9D8277339AF00A45ADB /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 025AE9D6277339AE00A45ADB /* Shader.fsh */; };
 		025AE9D9277339AF00A45ADB /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 025AE9D7277339AF00A45ADB /* Shader.vsh */; };
 		025AE9DB277339C700A45ADB /* crate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 025AE9DA277339C700A45ADB /* crate.jpg */; };
-		4FD744FF27BD84300063D85A /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD744FE27BD84300063D85A /* GameObject.swift */; };
 		4FD7450227BD96980063D85A /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD7450127BD96980063D85A /* GameObject.m */; };
 /* End PBXBuildFile section */
 
@@ -39,7 +38,6 @@
 		025AE9D6277339AE00A45ADB /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
 		025AE9D7277339AF00A45ADB /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
 		025AE9DA277339C700A45ADB /* crate.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = crate.jpg; sourceTree = "<group>"; };
-		4FD744FE27BD84300063D85A /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
 		4FD7450027BD92230063D85A /* GameObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
 		4FD7450127BD96980063D85A /* GameObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,7 +56,6 @@
 		025AE9AF277337DF00A45ADB = {
 			isa = PBXGroup;
 			children = (
-				4FD744FE27BD84300063D85A /* GameObject.swift */,
 				025AE9BA277337DF00A45ADB /* WhatsRight */,
 				025AE9B9277337DF00A45ADB /* Products */,
 			);
@@ -174,7 +171,6 @@
 				025AE9D52773396300A45ADB /* GLESRenderer.cpp in Sources */,
 				4FD7450227BD96980063D85A /* GameObject.m in Sources */,
 				025AE9C0277337DF00A45ADB /* ViewController.swift in Sources */,
-				4FD744FF27BD84300063D85A /* GameObject.swift in Sources */,
 				025AE9BC277337DF00A45ADB /* AppDelegate.swift in Sources */,
 				025AE9D42773396300A45ADB /* Renderer.mm in Sources */,
 				025AE9BE277337DF00A45ADB /* SceneDelegate.swift in Sources */,
