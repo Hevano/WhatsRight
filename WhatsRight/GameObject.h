@@ -13,7 +13,8 @@
 
 // To give an interface to Swift for variables, they need to be Objective-C properties. You can add additional ones, such as a toggle variable for auto-rotating a cube.
 @property GLuint vbo;
-@property GLenum texture;
+@property GLuint texture;
+@property GLint[] uniforms;
 
 @property GLKVector3 position;
 @property GLKVector3 scale;
