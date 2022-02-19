@@ -4,20 +4,22 @@
 #include <stdlib.h>
 #include <OpenGLES/ES3/gl.h>
 #include <glm/glm.hpp>
+#include <vector>
 #include "GLESRenderer.hpp"
+
 
 class GameObject
 {
 public:
-    GLuint[] vbos;
+    GLuint vbos[2];
     GLuint texture;
     std::vector<unsigned int> attribArrays;
     GLuint idxBuf;
     int numIndices;
 
-    GLKVector3 position;
-    GLKVector3 scale;
-    GLKQuaternion rotation;
+    glm:vec3 position;
+    glm:vec3 scale;
+    glm:quat rotation;
 
     GameObject();
 
