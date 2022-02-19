@@ -18,11 +18,8 @@
 @property GLKVector2 position;
 
 - (void)setup:(GLKView *)view;
-- (void)loadModels;
 - (void)update;
 - (void)draw:(CGRect)drawRect;
-- (void)rotate:(float)xAxis secondAxis:(float)yAxis thirdAxis:(float)zAxis;
-- (void)translate:(float)xAxis secondAxis:(float)yAxis thirdAxis:(float)zAxis;
 @end
 
 #endif /* Renderer_h */

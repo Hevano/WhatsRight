@@ -8,20 +8,7 @@
 #include <chrono>
 #include "GLESRenderer.hpp"
 
-// These are GL indices for uniform variables used by GLSL shaders.
-// You can add additional ones, for example for a normal matrix,
-//  textures, toggles, or for any other data to pass on to the shaders.
-enum
-{
-    UNIFORM_MODELVIEWPROJECTION_MATRIX,
-    // ### insert additional uniforms here
-    UNIFORM_NORMAL_MATRIX,
-    UNIFORM_PASSTHROUGH,
-    UNIFORM_SHADEINFRAG,
-    UNIFORM_TEXTURE,
-    NUM_UNIFORMS
-};
-GLint uniforms[NUM_UNIFORMS];
+
 
 // These are GL indices for vertex attributes
 //  (e.g., vertex normals, texture coordinates, etc.)
@@ -44,13 +31,6 @@ enum
     // ### add additional ones (e.g., texture IDs, normal matrices, etc.) here
     GLKMatrix3 normalMatrix;
     GLuint crateTexture;
-    
-
-    // GL vertex data (minimum X,Y,Z location)
-    float *vertices;
-    // ### add additional vertex data (e.g., vertex normals, texture coordinates, etc.) here
-    float *normals, *texCoords;
-    int *indices, numIndices;
 }
 
 @end
@@ -73,13 +53,6 @@ enum
 - (void)dealloc
 {
     glDeleteProgram(programObject);
-}
-
-- (void)loadModels
-{
-//    numIndices = glesRenderer.GenSquare(1.0f, &vertices, &indices);
-    // ### instead of a cube, you can load any other model
-    numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
 }
 
 - (void)setup:(GLKView *)view
@@ -119,50 +92,6 @@ enum
     auto currentTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
     lastTime = currentTime;
-    
-    // ### do any other updating (e.g., changing the rotation angle of an auto-rotating cube) here
-    if (isRotating)
-    {
-        rotAngle += 0.001f * elapsedTime;
-        if (rotAngle >= 360.0f)
-            rotAngle = 0.0f;
-    }
-    
-    if(reset){
-        reset = false;
-        rotAngle = 0.0f;
-        panRotation.x = 0;
-        panRotation.y = 0;
-        zoom = -5.0f;
-        position.x = 0;
-        position.y = 0;
-        //reset position
-    }
-
-    // Set up a perspective view
-    mvp = GLKMatrix4Translate(GLKMatrix4Identity, position.x, position.y, zoom);
-    // ### add any other transformations here (e.g., adding a rotation for a cube, or setting up a normal matrix for the shader)
-    mvp = GLKMatrix4Rotate(mvp, rotAngle, 0.0, 1.0, 0.0 );
-    mvp = GLKMatrix4Rotate(mvp, panRotation.x, 0.0, 0.0, 1.0);
-    mvp = GLKMatrix4Rotate(mvp, panRotation.y, 0.0, 1.0, 0.0);
-    normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(mvp), NULL);
-
-    float aspect = (float)theView.drawableWidth / (float)theView.drawableHeight;
-    GLKMatrix4 perspective = GLKMatrix4MakePerspective(60.0f * M_PI / 180.0f, aspect, 1.0f, 20.0f);
-
-    mvp = GLKMatrix4Multiply(perspective, mvp);
-}
-
-- (void)rotate:(float)xAxis secondAxis:(float)yAxis thirdAxis:(float)zAxis;
-{
-    panRotation.x = xAxis * M_PI / 180;
-    panRotation.y = zAxis * M_PI / 180;
-}
-
-- (void)translate:(float)xAxis secondAxis:(float)yAxis thirdAxis:(float)zAxis;
-{
-    position.x = xAxis;
-    position.y = yAxis;
 }
 
 - (void)draw:(CGRect)drawRect;
@@ -176,27 +105,7 @@ enum
     glViewport(0, 0, (int)theView.drawableWidth, (int)theView.drawableHeight);
     glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     glUseProgram ( programObject );
-
-    glVertexAttribPointer ( 0, 3, GL_FLOAT,
-                           GL_FALSE, 3 * sizeof ( GLfloat ), vertices );
-    glEnableVertexAttribArray ( 0 );
-    // ### set up and enable any additional vertex attributes (e.g., normals, texture coordinates, etc.) here
-
-    glVertexAttrib4f ( 1, 1.0f, 0.0f, 0.0f, 1.0f );
-
-    glVertexAttribPointer ( 2, 3, GL_FLOAT,
-                           GL_FALSE, 3 * sizeof ( GLfloat ), normals );
-    glEnableVertexAttribArray ( 2 );
-
-    glVertexAttribPointer ( 3, 2, GL_FLOAT,
-                           GL_FALSE, 2 * sizeof ( GLfloat ), texCoords );
-    glEnableVertexAttribArray ( 3 );
-    if (isRed)
-        glVertexAttrib4f ( 1, 1.0f, 0.0f, 0.0f, 1.0f );
-    else
-        glVertexAttrib4f ( 1, 0.0f, 1.0f, 0.0f, 1.0f );
-    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, FALSE, (const float *)mvp.m);
-    glDrawElements ( GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, indices );
+    glesRenderer.DrawGameObject(gameObject);
 }
 
 
