@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <OpenGLES/ES3/gl.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/quaternion.hpp>
 #include <vector>
 #include "GLESRenderer.hpp"
 
@@ -17,13 +19,14 @@ public:
     GLuint idxBuf;
     int numIndices;
 
-    glm:vec3 position;
-    glm:vec3 scale;
-    glm:quat rotation;
+    glm::vec3 position;
+    glm::vec3 scale;
+    glm::quat rotation;
+    glm::mat4 modelMatrix;
+    
+    GameObject(GLESRenderer *renderer);
 
-    GameObject();
-
-    glm::mat4 modelMatrix();
+    glm::mat4 getModelMatrix();
     void setScale(glm::vec3 scale);
     void setRotation(glm::quat rotation);
     void setPosition(glm::vec3 position);

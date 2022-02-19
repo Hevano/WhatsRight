@@ -9,6 +9,7 @@
 
 #include <OpenGLES/ES3/gl.h>
 #include <glm/glm.hpp>
+#include "GameObject.hpp"
 
 // These are GL indices for uniform variables used by GLSL shaders.
 // You can add additional ones, for example for a normal matrix,
@@ -28,7 +29,7 @@ class GLESRenderer
 {
     
 public:
-    GlesRenderer();
+    GLESRenderer();
     char *LoadShaderFile(const char *shaderFileName);
     GLuint LoadShader(GLenum type, const char *shaderSrc);
     GLuint LoadProgram(const char *vertShaderSrc, const char *fragShaderSrc);

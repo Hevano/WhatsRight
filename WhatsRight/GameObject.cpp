@@ -5,18 +5,23 @@
 //  Created by Evano Hirabe on 2022-02-16.
 //
 #include "GameObject.hpp"
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/quaternion.hpp>
+#include "GLESRenderer.hpp"
 
-void GameObject::GameObject () {
-    position = glm:vec3(0f);
-    scale = glm:vec3(1f);
-    rotation = glm:quat(0f);
+#define BUFFER_OFFSET(i) ((char*)NULL+ (i))
+
+GameObject::GameObject (GLESRenderer *renderer) {
+    position = glm::vec3(0.0f);
+    scale = glm::vec3(1.0f);
+    rotation = glm::quat(glm::vec3(0.0f));
 
     //load model
     float *vertices;
     float *normals, *texCoords;
     int *indices;
 
-    numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
+    numIndices = renderer->GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
 
 
     //Generate and fill buffers
@@ -42,19 +47,20 @@ void GameObject::GameObject () {
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndices*sizeof(indices[0]), indices, GL_STATIC_DRAW);
 }
 
-glm::mat4 GameObject::modelMatrix(){
+glm::mat4 GameObject::getModelMatrix(){
     glm::mat4 model = glm::translate(glm::mat4(1.0f), position)
-        * glm::toMat4(rotation)
-        * scale;
+    * glm::toMat4(rotation);
+    glm::scale(model, scale);
+    modelMatrix = model;
     return model;
 }
-void GameObject::setScale(GLKVector3 newScale){
+void GameObject::setScale(glm::vec3 newScale){
     scale = newScale;
 };
-void GameObject::setRotation(GLKQuaternion newRotation){
+void GameObject::setRotation(glm::quat newRotation){
     rotation = newRotation;
 };
-void GameObject::setPosition(GLKVector3 newPosition){
-    position = newPosition
+void GameObject::setPosition(glm::vec3 newPosition){
+    position = newPosition;
 };
 
