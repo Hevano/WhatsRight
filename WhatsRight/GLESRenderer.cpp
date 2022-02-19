@@ -9,6 +9,14 @@
 #include <iostream>
 #include "GLESRenderer.hpp"
 
+GLESRenderer::GlesRenderer(){
+    projectioneMat = glm::perspective(glm::radians(45.0f), (float)960 / (float)540, 0.1f, 100.0f);
+    viewMat = glm::lookAt(
+        glm::vec3(2, 0, 0), // Camera is at (4,3,3), in World Space
+        glm::vec3(0, 0, 0), // and looks at the origin
+        glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
+    );
+}
 
 char *GLESRenderer::LoadShaderFile(const char *shaderFileName)
 {
@@ -298,4 +306,22 @@ int GLESRenderer::GenCube(float scale, float **vertices, float **normals,
     }
     
     return numIndices;
+}
+
+void GLESRenderer::DrawGameObject(GameObject *obj){
+    //Bind Vertex Buffers
+    glBindBuffer(GL_ARRAY_BUFFER, obj->vbos[0]);
+    glBindBuffer(GL_ARRAY_BUFFER, obj->vbos->[1]);
+
+    //Bind Index Buffer
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, obj->idxBuf);
+
+    //Bind Vertex Attribute Arrays
+    for (unsigned int i : obj->attribArrays) {
+		glEnableVertexAttribArray(i);
+	}
+    //Set uniforms
+    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, FALSE, (const float *)obj->modelMatrix());
+    glDrawElements ( GL_TRIANGLES, obj->numIndices, GL_UNSIGNED_INT, (void *)0 );
+
 }
