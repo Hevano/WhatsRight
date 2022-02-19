@@ -7,6 +7,7 @@
 #import <GLKit/GLKit.h>
 #include <chrono>
 #include "GLESRenderer.hpp"
+#include "GameObject.hpp"
 
 
 
@@ -31,6 +32,7 @@ enum
     // ### add additional ones (e.g., texture IDs, normal matrices, etc.) here
     GLKMatrix3 normalMatrix;
     GLuint crateTexture;
+    GameObject gameObject();
 }
 
 @end
