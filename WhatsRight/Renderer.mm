@@ -32,7 +32,7 @@ enum
     // ### add additional ones (e.g., texture IDs, normal matrices, etc.) here
     GLKMatrix3 normalMatrix;
     GLuint crateTexture;
-    GameObject gameObject();
+    GameObject gameObject;
 }
 
 @end
@@ -87,6 +87,14 @@ enum
     glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f ); // background color
     glEnable(GL_DEPTH_TEST);
     lastTime = std::chrono::steady_clock::now();
+    
+    int numIndices;
+    float *vertices;
+    float *normals;
+    float *texCoords;
+    int *indices;
+    glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
+    gameObject = GameObject(numIndices, vertices, normals, texCoords, indices);
 }
 
 - (void)update
@@ -98,7 +106,6 @@ enum
 
 - (void)draw:(CGRect)drawRect;
 {
-    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, FALSE, (const float *)mvp.m);
     // ### load any additional uniforms with relevant data here
     glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, normalMatrix.m);
     glUniform1i(uniforms[UNIFORM_PASSTHROUGH], false);
@@ -107,7 +114,7 @@ enum
     glViewport(0, 0, (int)theView.drawableWidth, (int)theView.drawableHeight);
     glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     glUseProgram ( programObject );
-    glesRenderer.DrawGameObject(gameObject);
+    glesRenderer.DrawGameObject(&gameObject);
 }
 
 

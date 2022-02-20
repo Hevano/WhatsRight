@@ -11,18 +11,11 @@
 
 #define BUFFER_OFFSET(i) ((char*)NULL+ (i))
 
-GameObject::GameObject (GLESRenderer *renderer) {
+GameObject::GameObject (int numIndices, float *vertices, float *normals, float *texCoords, int *indices) {
     position = glm::vec3(0.0f);
     scale = glm::vec3(1.0f);
     rotation = glm::quat(glm::vec3(0.0f));
-
-    //load model
-    float *vertices;
-    float *normals, *texCoords;
-    int *indices;
-
-    numIndices = renderer->GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
-
+    this->numIndices = numIndices;
 
     //Generate and fill buffers
     glGenBuffers(2, vbos);

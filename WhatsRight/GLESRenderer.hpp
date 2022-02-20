@@ -25,6 +25,7 @@ enum
     NUM_UNIFORMS
 };
 
+
 class GLESRenderer
 {
     

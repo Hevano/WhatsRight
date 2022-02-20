@@ -7,7 +7,6 @@
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/quaternion.hpp>
 #include <vector>
-#include "GLESRenderer.hpp"
 
 
 class GameObject
@@ -24,7 +23,7 @@ public:
     glm::quat rotation;
     glm::mat4 modelMatrix;
     
-    GameObject(GLESRenderer *renderer);
+    GameObject (int numIndices, float *vertices, float *normals, float *texCoords, int *indices);
 
     glm::mat4 getModelMatrix();
     void setScale(glm::vec3 scale);

@@ -7,6 +7,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include <iostream>
+#include <glm/gtc/matrix_transform.hpp>
 #include "GLESRenderer.hpp"
 
 GLESRenderer::GLESRenderer(){
@@ -320,9 +321,9 @@ void GLESRenderer::DrawGameObject(GameObject *obj){
     for (unsigned int i : obj->attribArrays) {
 		glEnableVertexAttribArray(i);
 	}
-    obj->getModelMatrix();
+    glm::mat4 mvp = projectionMat * viewMat * obj->getModelMatrix();
     //Set uniforms
-    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, GL_FALSE, &(obj->modelMatrix));
+    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, GL_FALSE, (const float *) &mvp);
     glDrawElements ( GL_TRIANGLES, obj->numIndices, GL_UNSIGNED_INT, (void *)0 );
 
 }
