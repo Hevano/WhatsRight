@@ -14,6 +14,8 @@
 @property float rotAngle;
 @property float zoom;
 @property bool reset;
+@property float transX;
+@property float transY;
 @property GLKVector2 panRotation;
 @property GLKVector2 position;
 

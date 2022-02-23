@@ -37,15 +37,23 @@ class ViewController: GLKViewController {
         super.viewDidLoad()
         setupGL()   // call this to set up our GL environment
         
+        // set up swipe gestures
+        let SwipeUp = UISwipeGestureRecognizer(target: self, action: #selector(self.doSwipeUp))
+        SwipeUp.direction = UISwipeGestureRecognizer.Direction.up
+        view.addGestureRecognizer(SwipeUp)
+        
+        let SwipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.doSwipeDown))
+        SwipeDown.direction = UISwipeGestureRecognizer.Direction.down
+        view.addGestureRecognizer(SwipeDown)
         // Set up a double-tap gesture reognizer
         let doubleTap = UITapGestureRecognizer(target: self, action: #selector(self.doDoubleTap(_:)))
         doubleTap.numberOfTapsRequired = 2;
         view.addGestureRecognizer(doubleTap);
         
         //Set up the drag gesture
-        let drag = UIPanGestureRecognizer(target: self, action: #selector(self.doDrag(_:)))
-        drag.maximumNumberOfTouches = 1;
-        view.addGestureRecognizer(drag);
+//        let drag = UIPanGestureRecognizer(target: self, action: #selector(self.doDrag(_:)))
+//        drag.maximumNumberOfTouches = 1;
+//        view.addGestureRecognizer(drag);
         
         
         //Set up ping gesture
@@ -58,14 +66,14 @@ class ViewController: GLKViewController {
         view.addGestureRecognizer(pan);
         
         //Set up reset button
-        button = UIButton(type: .system)
-        button.frame = CGRect(x: 200, y: 100, width: 100, height: 50);
-        button.backgroundColor = .green;
-        button.setTitle("Reset", for: .normal);
-        button.isEnabled = true;
-        self.view.addSubview(button);
-        
-        button.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside);
+//        button = UIButton(type: .system)
+//        button.frame = CGRect(x: 200, y: 100, width: 100, height: 50);
+//        button.backgroundColor = .green;
+//        button.setTitle("Reset", for: .normal);
+//        button.isEnabled = true;
+//        self.view.addSubview(button);
+//
+//        button.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside);
         
         //Set up transform label
         transformLabel = UILabel();
@@ -97,12 +105,12 @@ class ViewController: GLKViewController {
         glesRenderer.reset = true;
     }
     
-    @objc func doDrag(_ gestureRecognizer : UIPanGestureRecognizer){
-        if(!glesRenderer.isRotating){
-            let panVelocity = gestureRecognizer.translation(in: self.view);
-            glesRenderer.rotate(Float(panVelocity.y), secondAxis: 0.0, thirdAxis: Float(panVelocity.x));
-        }
-    }
+//    @objc func doDrag(_ gestureRecognizer : UIPanGestureRecognizer){
+//        if(!glesRenderer.isRotating){
+//            let panVelocity = gestureRecognizer.translation(in: self.view);
+//            glesRenderer.rotate(Float(panVelocity.y), secondAxis: 0.0, thirdAxis: Float(panVelocity.x));
+//        }
+//    }
     
     @objc func doPan(_ gestureRecognizer : UIPanGestureRecognizer){
         if(!glesRenderer.isRotating){
@@ -117,4 +125,28 @@ class ViewController: GLKViewController {
             glesRenderer.zoom += Float(-gestureRecognizer.velocity / 10);
         }
     }
+    
+    @objc func doSwipeUp(_ sender: UISwipeGestureRecognizer) {
+        if(glesRenderer.position.y >= 1){
+            return
+        } else {
+            //glesRenderer.transX += 1;
+            glesRenderer.position.y += 1;
+            print("Swipe Active");
+            print(glesRenderer.position.y)
+        }
+    }
+    
+    @objc func doSwipeDown(_ sender: UISwipeGestureRecognizer) {
+        if(glesRenderer.position.y <= -1){
+            return
+        } else {
+            //glesRenderer.transX += 1;
+            glesRenderer.position.y -= 1;
+            print("Swipe Active");
+            print(glesRenderer.position.y)
+        }
+        
+    }
+    
 }

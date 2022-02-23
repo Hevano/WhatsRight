@@ -11,17 +11,7 @@
 // These are GL indices for uniform variables used by GLSL shaders.
 // You can add additional ones, for example for a normal matrix,
 //  textures, toggles, or for any other data to pass on to the shaders.
-enum
-{
-    UNIFORM_MODELVIEWPROJECTION_MATRIX,
-    // ### insert additional uniforms here
-    UNIFORM_NORMAL_MATRIX,
-    UNIFORM_PASSTHROUGH,
-    UNIFORM_SHADEINFRAG,
-    UNIFORM_TEXTURE,
-    NUM_UNIFORMS
-};
-GLint uniforms[NUM_UNIFORMS];
+
 
 // These are GL indices for vertex attributes
 //  (e.g., vertex normals, texture coordinates, etc.)
@@ -70,6 +60,10 @@ enum
 @synthesize position;
 
 @synthesize panRotation;
+
+@synthesize transX;
+@synthesize transY;
+
 - (void)dealloc
 {
     glDeleteProgram(programObject);
@@ -102,12 +96,14 @@ enum
     zoom = -5.0f;
     isRotating = 1;
     reset = false;
+    transX = 0.0f;
+    transY = 0.0f;
 
     // ### you should also load any textures needed here (you can use the setupTexture method below to load in a JPEG image and assign it to a GL texture)
     crateTexture = [self setupTexture:@"crate.jpg"];
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, crateTexture);
-    glUniform1i(uniforms[UNIFORM_TEXTURE], 0);
+    glUniform1i(glesRenderer.uniforms[UNIFORM_TEXTURE], 0);
 
     glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f ); // background color
     glEnable(GL_DEPTH_TEST);
@@ -147,10 +143,7 @@ enum
     mvp = GLKMatrix4Rotate(mvp, panRotation.y, 0.0, 1.0, 0.0);
     normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(mvp), NULL);
 
-    float aspect = (float)theView.drawableWidth / (float)theView.drawableHeight;
-    GLKMatrix4 perspective = GLKMatrix4MakePerspective(60.0f * M_PI / 180.0f, aspect, 1.0f, 20.0f);
-
-    mvp = GLKMatrix4Multiply(perspective, mvp);
+    glesRenderer.aspect = (float)theView.drawableWidth / (float)theView.drawableHeight;
 }
 
 - (void)rotate:(float)xAxis secondAxis:(float)yAxis thirdAxis:(float)zAxis;
@@ -167,36 +160,16 @@ enum
 
 - (void)draw:(CGRect)drawRect;
 {
-    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, FALSE, (const float *)mvp.m);
     // ### load any additional uniforms with relevant data here
-    glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, normalMatrix.m);
-    glUniform1i(uniforms[UNIFORM_PASSTHROUGH], false);
-    glUniform1i(uniforms[UNIFORM_SHADEINFRAG], true);
-
-    glViewport(0, 0, (int)theView.drawableWidth, (int)theView.drawableHeight);
+    glUniformMatrix3fv(glesRenderer.uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, normalMatrix.m);
+    glUniform1i(glesRenderer.uniforms[UNIFORM_PASSTHROUGH], true);
+    glUniform1i(glesRenderer.uniforms[UNIFORM_SHADEINFRAG], false);
+    
     glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     glUseProgram ( programObject );
-
-    glVertexAttribPointer ( 0, 3, GL_FLOAT,
-                           GL_FALSE, 3 * sizeof ( GLfloat ), vertices );
-    glEnableVertexAttribArray ( 0 );
-    // ### set up and enable any additional vertex attributes (e.g., normals, texture coordinates, etc.) here
-
-    glVertexAttrib4f ( 1, 1.0f, 0.0f, 0.0f, 1.0f );
-
-    glVertexAttribPointer ( 2, 3, GL_FLOAT,
-                           GL_FALSE, 3 * sizeof ( GLfloat ), normals );
-    glEnableVertexAttribArray ( 2 );
-
-    glVertexAttribPointer ( 3, 2, GL_FLOAT,
-                           GL_FALSE, 2 * sizeof ( GLfloat ), texCoords );
-    glEnableVertexAttribArray ( 3 );
-    if (isRed)
-        glVertexAttrib4f ( 1, 1.0f, 0.0f, 0.0f, 1.0f );
-    else
-        glVertexAttrib4f ( 1, 0.0f, 1.0f, 0.0f, 1.0f );
-    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, FALSE, (const float *)mvp.m);
-    glDrawElements ( GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, indices );
+    
+    glesRenderer.DrawCube(0, position.y * 1.5, 0);
+    glesRenderer.DrawCube(0, 0, 0);
 }
 
 
@@ -210,12 +183,12 @@ enum
         return false;
     
     // Set up uniform variables
-    uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(programObject, "modelViewProjectionMatrix");
+    glesRenderer.uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(programObject, "modelViewProjectionMatrix");
     // ### set up any additional uniform variables here
-    uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(programObject, "normalMatrix");
-    uniforms[UNIFORM_PASSTHROUGH] = glGetUniformLocation(programObject, "passThrough");
-    uniforms[UNIFORM_SHADEINFRAG] = glGetUniformLocation(programObject, "shadeInFrag");
-    uniforms[UNIFORM_TEXTURE] = glGetUniformLocation(programObject, "texSampler");
+    glesRenderer.uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(programObject, "normalMatrix");
+    glesRenderer.uniforms[UNIFORM_PASSTHROUGH] = glGetUniformLocation(programObject, "passThrough");
+    glesRenderer.uniforms[UNIFORM_SHADEINFRAG] = glGetUniformLocation(programObject, "shadeInFrag");
+    glesRenderer.uniforms[UNIFORM_TEXTURE] = glGetUniformLocation(programObject, "texSampler");
 
     return true;
 }
