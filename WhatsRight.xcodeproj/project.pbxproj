@@ -19,6 +19,7 @@
 		025AE9D9277339AF00A45ADB /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 025AE9D7277339AF00A45ADB /* Shader.vsh */; };
 		025AE9DB277339C700A45ADB /* crate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 025AE9DA277339C700A45ADB /* crate.jpg */; };
 		4F88A6AB27C5CD8F009D8051 /* glm in Resources */ = {isa = PBXBuildFile; fileRef = 4F88A6AA27C5CD8F009D8051 /* glm */; };
+		4FBDC07927C6C3BC005D7A43 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDC07727C6C3BC005D7A43 /* GameObject.cpp */; };
 		4FD744FF27BD84300063D85A /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD744FE27BD84300063D85A /* GameObject.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +41,8 @@
 		025AE9D7277339AF00A45ADB /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
 		025AE9DA277339C700A45ADB /* crate.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = crate.jpg; sourceTree = "<group>"; };
 		4F88A6AA27C5CD8F009D8051 /* glm */ = {isa = PBXFileReference; lastKnownFileType = folder; path = glm; sourceTree = "<group>"; };
+		4FBDC07727C6C3BC005D7A43 /* GameObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameObject.cpp; sourceTree = "<group>"; };
+		4FBDC07827C6C3BC005D7A43 /* GameObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GameObject.hpp; sourceTree = "<group>"; };
 		4FD744FE27BD84300063D85A /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -90,6 +93,8 @@
 				025AE9C6277337E200A45ADB /* LaunchScreen.storyboard */,
 				025AE9C9277337E200A45ADB /* Info.plist */,
 				025AE9CF2773396200A45ADB /* WhatsRight-Bridging-Header.h */,
+				4FBDC07727C6C3BC005D7A43 /* GameObject.cpp */,
+				4FBDC07827C6C3BC005D7A43 /* GameObject.hpp */,
 			);
 			path = WhatsRight;
 			sourceTree = "<group>";
@@ -176,6 +181,7 @@
 				025AE9BC277337DF00A45ADB /* AppDelegate.swift in Sources */,
 				025AE9D42773396300A45ADB /* Renderer.mm in Sources */,
 				025AE9BE277337DF00A45ADB /* SceneDelegate.swift in Sources */,
+				4FBDC07927C6C3BC005D7A43 /* GameObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

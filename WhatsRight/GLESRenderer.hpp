@@ -9,6 +9,7 @@
 
 #include <OpenGLES/ES3/gl.h>
 #include "glm/glm.hpp"
+#include "GameObject.hpp"
 
 enum
 {
@@ -34,6 +35,7 @@ public:
                 float **texCoords, int **indices);
     int GenSquare(float scale, float **vertices, int **indices);
     void DrawCube(float x, float y, float z);
+    void DrawGameObject(GameObject *obj);
 };
 
 #endif /* GLESRenderer_hpp */

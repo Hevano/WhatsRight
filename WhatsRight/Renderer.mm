@@ -168,8 +168,16 @@ enum
     glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     glUseProgram ( programObject );
     
-    glesRenderer.DrawCube(0, position.y * 1.5, 0);
-    glesRenderer.DrawCube(0, 0, 0);
+    //glesRenderer.DrawCube(0, position.y * 1.5, 0);
+    //glesRenderer.DrawCube(0, 0, 0);
+    float *vertices;
+    // ### add additional vertex data (e.g., vertex normals, texture coordinates, etc.) here
+    float *normals, *texCoords;
+    int *indices, numIndices;
+    
+    numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
+    GameObject g = GameObject(numIndices, vertices, normals, texCoords, indices);
+    glesRenderer.DrawGameObject(&g);
 }
 
 
