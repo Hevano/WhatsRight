@@ -168,8 +168,8 @@ enum
     glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     glUseProgram ( programObject );
     
-    glesRenderer.DrawCube(-5, position.y, 0);
-    glesRenderer.DrawCube(-3, 0, 0);
+    glesRenderer.DrawCube(0, position.y * 1.5, 0);
+    glesRenderer.DrawCube(0, 0, 0);
 }
 
 
