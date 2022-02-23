@@ -8,6 +8,8 @@
 #include <string.h>
 #include <iostream>
 #include "GLESRenderer.hpp"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
 
 char *GLESRenderer::LoadShaderFile(const char *shaderFileName)
@@ -298,4 +300,44 @@ int GLESRenderer::GenCube(float scale, float **vertices, float **normals,
     }
     
     return numIndices;
+}
+
+void GLESRenderer::DrawCube(float x, float y, float z){
+    // Set up a perspective view
+    glm::mat4 projectionMat = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 100.0f);
+    glm::mat4 viewMat = glm::lookAt(
+            glm::vec3(2, 0, 0), // Camera is at (4,3,3), in World Space
+            glm::vec3(0, 0, 0), // and looks at the origin
+            glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
+        );
+    
+    glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), glm::vec3(x, y, z));
+
+    glm::mat4 mvp = projectionMat * viewMat * modelMat;
+    // GL vertex data (minimum X,Y,Z location)
+    float *vertices;
+    // ### add additional vertex data (e.g., vertex normals, texture coordinates, etc.) here
+    float *normals, *texCoords;
+    int *indices, numIndices;
+    
+    numIndices = GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
+
+    glVertexAttribPointer ( 0, 3, GL_FLOAT,
+                           GL_FALSE, 3 * sizeof ( GLfloat ), vertices );
+    glEnableVertexAttribArray ( 0 );
+    // ### set up and enable any additional vertex attributes (e.g., normals, texture coordinates, etc.) here
+
+    glVertexAttrib4f ( 1, 1.0f, 0.0f, 0.0f, 1.0f );
+
+    glVertexAttribPointer ( 2, 3, GL_FLOAT,
+                           GL_FALSE, 3 * sizeof ( GLfloat ), normals );
+    glEnableVertexAttribArray ( 2 );
+
+    glVertexAttribPointer ( 3, 2, GL_FLOAT,
+                           GL_FALSE, 2 * sizeof ( GLfloat ), texCoords );
+    glEnableVertexAttribArray ( 3 );
+    glVertexAttrib4f ( 1, 0.0f, 1.0f, 0.0f, 1.0f );
+    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, GL_FALSE, (const float *)(&mvp));
+    
+    glDrawElements ( GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, indices );
 }

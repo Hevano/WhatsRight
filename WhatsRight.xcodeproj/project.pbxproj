@@ -18,6 +18,7 @@
 		025AE9D8277339AF00A45ADB /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 025AE9D6277339AE00A45ADB /* Shader.fsh */; };
 		025AE9D9277339AF00A45ADB /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 025AE9D7277339AF00A45ADB /* Shader.vsh */; };
 		025AE9DB277339C700A45ADB /* crate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 025AE9DA277339C700A45ADB /* crate.jpg */; };
+		4F88A6AB27C5CD8F009D8051 /* glm in Resources */ = {isa = PBXBuildFile; fileRef = 4F88A6AA27C5CD8F009D8051 /* glm */; };
 		4FD744FF27BD84300063D85A /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD744FE27BD84300063D85A /* GameObject.swift */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +39,7 @@
 		025AE9D6277339AE00A45ADB /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
 		025AE9D7277339AF00A45ADB /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
 		025AE9DA277339C700A45ADB /* crate.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = crate.jpg; sourceTree = "<group>"; };
+		4F88A6AA27C5CD8F009D8051 /* glm */ = {isa = PBXFileReference; lastKnownFileType = folder; path = glm; sourceTree = "<group>"; };
 		4FD744FE27BD84300063D85A /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,6 +74,7 @@
 		025AE9BA277337DF00A45ADB /* WhatsRight */ = {
 			isa = PBXGroup;
 			children = (
+				4F88A6AA27C5CD8F009D8051 /* glm */,
 				025AE9D32773396300A45ADB /* GLESRenderer.cpp */,
 				025AE9D02773396300A45ADB /* GLESRenderer.hpp */,
 				025AE9D12773396300A45ADB /* Renderer.h */,
@@ -152,6 +155,7 @@
 			files = (
 				025AE9D8277339AF00A45ADB /* Shader.fsh in Resources */,
 				025AE9C8277337E200A45ADB /* LaunchScreen.storyboard in Resources */,
+				4F88A6AB27C5CD8F009D8051 /* glm in Resources */,
 				025AE9C5277337E200A45ADB /* Assets.xcassets in Resources */,
 				025AE9DB277339C700A45ADB /* crate.jpg in Resources */,
 				025AE9C3277337DF00A45ADB /* Main.storyboard in Resources */,
