@@ -66,14 +66,14 @@ class ViewController: GLKViewController {
         view.addGestureRecognizer(pan);
         
         //Set up reset button
-        button = UIButton(type: .system)
-        button.frame = CGRect(x: 200, y: 100, width: 100, height: 50);
-        button.backgroundColor = .green;
-        button.setTitle("Reset", for: .normal);
-        button.isEnabled = true;
-        self.view.addSubview(button);
-        
-        button.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside);
+//        button = UIButton(type: .system)
+//        button.frame = CGRect(x: 200, y: 100, width: 100, height: 50);
+//        button.backgroundColor = .green;
+//        button.setTitle("Reset", for: .normal);
+//        button.isEnabled = true;
+//        self.view.addSubview(button);
+//
+//        button.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside);
         
         //Set up transform label
         transformLabel = UILabel();
