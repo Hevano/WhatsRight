@@ -21,6 +21,21 @@ GameObject::GameObject(int numIndices, float *vertices, float *normals, float *t
     m_indices = indices;
 }
 
+void GameObject::setRotation(glm::quat rotation){
+    m_rotation = std::move(rotation);
+    updateModelMatrix();
+}
+
+void GameObject::setPosition(glm::vec3 position){
+    m_position = std::move(position);
+    updateModelMatrix();
+}
+
+void GameObject::setScale(glm::vec3 scale){
+    m_scale = std::move(scale);
+    updateModelMatrix();
+}
+
 glm::mat4 GameObject::updateModelMatrix(){
     glm::mat4 model = glm::translate(glm::mat4(1.0f), m_position)
     * glm::toMat4(m_rotation);

@@ -358,24 +358,31 @@ void GLESRenderer::DrawGameObject(GameObject *obj){
             glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
         );
     
-    glm::mat4 mvp = projectionMat * viewMat * obj->modelMatrix;
+    glm::mat4 mv = viewMat * obj->m_modelMatrix;
+    
+    glm::mat4 mvp = projectionMat * viewMat * obj->m_modelMatrix;
+    
+    glm::mat3 normalMat = glm::inverse(glm::mat3(mvp));
+    normalMat = glm::transpose(normalMat);
 
     glVertexAttribPointer ( 0, 3, GL_FLOAT,
-                           GL_FALSE, 3 * sizeof ( GLfloat ), obj->vertices );
+                           GL_FALSE, 3 * sizeof ( GLfloat ), obj->m_vertices );
     glEnableVertexAttribArray ( 0 );
     // ### set up and enable any additional vertex attributes (e.g., normals, texture coordinates, etc.) here
 
     glVertexAttrib4f ( 1, 1.0f, 0.0f, 0.0f, 1.0f );
 
     glVertexAttribPointer ( 2, 3, GL_FLOAT,
-                           GL_FALSE, 3 * sizeof ( GLfloat ), obj->normals );
+                           GL_FALSE, 3 * sizeof ( GLfloat ), obj->m_normals );
     glEnableVertexAttribArray ( 2 );
 
     glVertexAttribPointer ( 3, 2, GL_FLOAT,
-                           GL_FALSE, 2 * sizeof ( GLfloat ), obj->texCoords );
+                           GL_FALSE, 2 * sizeof ( GLfloat ), obj->m_texCoords );
     glEnableVertexAttribArray ( 3 );
     glVertexAttrib4f ( 1, 0.0f, 1.0f, 0.0f, 1.0f );
     glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, GL_FALSE, (const float *)(&mvp));
+    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEW_MATRIX], 1, GL_FALSE, (const float *)(&mv));
+    glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, GL_FALSE, (const float *)(&normalMat));
     
-    glDrawElements ( GL_TRIANGLES, obj->numIndices, GL_UNSIGNED_INT, obj->indices );
+    glDrawElements ( GL_TRIANGLES, obj->m_numIndices, GL_UNSIGNED_INT, obj->m_indices );
 }

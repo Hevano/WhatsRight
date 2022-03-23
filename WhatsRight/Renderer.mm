@@ -35,12 +35,21 @@ enum
     GLKMatrix3 normalMatrix;
     GLuint crateTexture;
     
+    // global lighting parameters
+    glm::vec4 specularLightPosition;
+    glm::vec4 specularComponent;
+    GLfloat shininess;
+    glm::vec4 ambientComponent;
+    glm::vec4 diffuseLightPosition;
+    glm::vec4 diffuseComponent;
+    
 
     // GL vertex data (minimum X,Y,Z location)
     float *vertices;
     // ### add additional vertex data (e.g., vertex normals, texture coordinates, etc.) here
     float *normals, *texCoords;
     int *indices, numIndices;
+    GameObject *g;
 }
 
 @end
@@ -90,15 +99,6 @@ enum
     if (![self setupShaders])
         return;
 
-    isRed = true;
-    // ### any other properties and variables that need to be initialized (e.g., auto-rotation toggle value, initial rotation angle, etc.)
-    rotAngle = 0.0f;
-    zoom = -5.0f;
-    isRotating = 1;
-    reset = false;
-    transX = 0.0f;
-    transY = 0.0f;
-
     // ### you should also load any textures needed here (you can use the setupTexture method below to load in a JPEG image and assign it to a GL texture)
     crateTexture = [self setupTexture:@"crate.jpg"];
     glActiveTexture(GL_TEXTURE0);
@@ -108,6 +108,22 @@ enum
     glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f ); // background color
     glEnable(GL_DEPTH_TEST);
     lastTime = std::chrono::steady_clock::now();
+    
+    float *vertices;
+    // ### add additional vertex data (e.g., vertex normals, texture coordinates, etc.) here
+    float *normals, *texCoords;
+    int *indices, numIndices;
+    
+    numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
+    g = new GameObject(numIndices, vertices, normals, texCoords, indices);
+    
+    //Lighting
+    specularComponent = glm::vec4(0.8f, 0.1f, 0.1f, 1.0f);
+    specularLightPosition = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
+    shininess = 1000.0f;
+    ambientComponent = glm::vec4(0.5f, 0.5f, 0.5f, 1.0f);
+    diffuseLightPosition = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
+    diffuseComponent = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
 }
 
 - (void)update
@@ -142,7 +158,8 @@ enum
     mvp = GLKMatrix4Rotate(mvp, panRotation.x, 0.0, 0.0, 1.0);
     mvp = GLKMatrix4Rotate(mvp, panRotation.y, 0.0, 1.0, 0.0);
     normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(mvp), NULL);
-
+    
+    g->setPosition(glm::vec3(0, position.y, 0));
     glesRenderer.aspect = (float)theView.drawableWidth / (float)theView.drawableHeight;
 }
 
@@ -160,24 +177,22 @@ enum
 
 - (void)draw:(CGRect)drawRect;
 {
-    // ### load any additional uniforms with relevant data here
-    glUniformMatrix3fv(glesRenderer.uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, normalMatrix.m);
-    glUniform1i(glesRenderer.uniforms[UNIFORM_PASSTHROUGH], true);
-    glUniform1i(glesRenderer.uniforms[UNIFORM_SHADEINFRAG], false);
+    // Lighting uniforms
+    glUniform1i(glesRenderer.uniforms[UNIFORM_LIGHT_SHININESS], shininess);
+    glUniform4fv(glesRenderer.uniforms[UNIFORM_LIGHT_SPECULAR_POSITION], 1, (const float*) &specularLightPosition);
+    glUniform4fv(glesRenderer.uniforms[UNIFORM_LIGHT_SPECULAR_COMPONENT], 1, (const float*) &specularComponent);
+    glUniform4fv(glesRenderer.uniforms[UNIFORM_LIGHT_AMBIENT_COMPONENT], 1, (const float*) &ambientComponent);
+    glUniform4fv(glesRenderer.uniforms[UNIFORM_LIGHT_DIFFUSE_POSITION], 1, (const float*) &diffuseLightPosition);
+    glUniform4fv(glesRenderer.uniforms[UNIFORM_LIGHT_DIFFUSE_COMPONENT], 1, (const float*) &diffuseComponent);
     
+    glUniformMatrix3fv(glesRenderer.uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, normalMatrix.m);
     glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     glUseProgram ( programObject );
     
     //glesRenderer.DrawCube(0, position.y * 1.5, 0);
     //glesRenderer.DrawCube(0, 0, 0);
-    float *vertices;
-    // ### add additional vertex data (e.g., vertex normals, texture coordinates, etc.) here
-    float *normals, *texCoords;
-    int *indices, numIndices;
     
-    numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
-    GameObject g = GameObject(numIndices, vertices, normals, texCoords, indices);
-    glesRenderer.DrawGameObject(&g);
+    glesRenderer.DrawGameObject(g);
 }
 
 
@@ -192,11 +207,16 @@ enum
     
     // Set up uniform variables
     glesRenderer.uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(programObject, "modelViewProjectionMatrix");
-    // ### set up any additional uniform variables here
+    glesRenderer.uniforms[UNIFORM_MODELVIEW_MATRIX] = glGetUniformLocation(programObject, "modelViewMatrix");
     glesRenderer.uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(programObject, "normalMatrix");
-    glesRenderer.uniforms[UNIFORM_PASSTHROUGH] = glGetUniformLocation(programObject, "passThrough");
-    glesRenderer.uniforms[UNIFORM_SHADEINFRAG] = glGetUniformLocation(programObject, "shadeInFrag");
     glesRenderer.uniforms[UNIFORM_TEXTURE] = glGetUniformLocation(programObject, "texSampler");
+    glesRenderer.uniforms[UNIFORM_LIGHT_SPECULAR_POSITION] = glGetUniformLocation(programObject, "specularLightPosition");
+    glesRenderer.uniforms[UNIFORM_LIGHT_DIFFUSE_POSITION] = glGetUniformLocation(programObject, "diffuseLightPosition");
+    glesRenderer.uniforms[UNIFORM_LIGHT_DIFFUSE_COMPONENT] = glGetUniformLocation(programObject, "diffuseComponent");
+    glesRenderer.uniforms[UNIFORM_LIGHT_SHININESS] = glGetUniformLocation(programObject, "shininess");
+    glesRenderer.uniforms[UNIFORM_LIGHT_SPECULAR_COMPONENT] = glGetUniformLocation(programObject, "specularComponent");
+    glesRenderer.uniforms[UNIFORM_LIGHT_AMBIENT_COMPONENT] = glGetUniformLocation(programObject, "ambientComponent");
+    glesRenderer.uniforms[UNIFORM_USE_TEXTURE] = glGetUniformLocation(programObject, "useTexture");
 
     return true;
 }
