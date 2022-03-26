@@ -19,12 +19,16 @@ const int NUM_POS_ITERATIONS = 3;
 
 class PhysicsManager{
 public:
+    bool hitDetected;
+    
+    
     PhysicsManager();
     ~PhysicsManager();
     
     void Update(float elapsedTime);
     void CreateBody(const GameObject&);
     void RemoveBody(const GameObject&);
+    bool WasHitDetected();
     
 private:
     b2World *world;

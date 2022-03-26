@@ -7,6 +7,7 @@
 #import <GLKit/GLKit.h>
 #include <chrono>
 #include "GLESRenderer.hpp"
+#include "PhysicsManager.hpp"
 
 // These are GL indices for uniform variables used by GLSL shaders.
 // You can add additional ones, for example for a normal matrix,
@@ -52,6 +53,8 @@ enum
     GameObject *g;
     
     GameObject *obstacles[3];
+    
+    PhysicsManager physics;
 
     int rNum[3];
 }
@@ -157,20 +160,21 @@ enum
 
 - (void)update
 {
-    // Function used when a collision occurs
-    //if( boxCollisionDetected ) {
-    //position.x -= 1;
-    if (position.x <= -3) {
-        position.x = 0;
-        printf("Game Over");
-        
-    }
-   // }
    
     auto currentTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
     lastTime = currentTime;
     
+    physics.Update(elapsedTime);
+    // Function used when a collision occurs
+    if( physics.WasHitDetected() ) {
+        position.x -= 1;
+        if (position.x <= -3) {
+            position.x = 0;
+            printf("Game Over");
+        
+        }
+    }
     // Variable for Score - Add to UI
     score += int(elapsedTime) / 30;
     //printf("Score: %d \n", score );

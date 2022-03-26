@@ -18,6 +18,7 @@
 		025AE9D8277339AF00A45ADB /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 025AE9D6277339AE00A45ADB /* Shader.fsh */; };
 		025AE9D9277339AF00A45ADB /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 025AE9D7277339AF00A45ADB /* Shader.vsh */; };
 		025AE9DB277339C700A45ADB /* crate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 025AE9DA277339C700A45ADB /* crate.jpg */; };
+		4F16965127EEC10B00793D5B /* PhysicsManager.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FF8381927EE985D00558B94 /* PhysicsManager.hpp */; };
 		4F88A6AB27C5CD8F009D8051 /* glm in Resources */ = {isa = PBXBuildFile; fileRef = 4F88A6AA27C5CD8F009D8051 /* glm */; };
 		4FBDC07927C6C3BC005D7A43 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDC07727C6C3BC005D7A43 /* GameObject.cpp */; };
 		4FD744FF27BD84300063D85A /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD744FE27BD84300063D85A /* GameObject.swift */; };
@@ -476,6 +477,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F16965127EEC10B00793D5B /* PhysicsManager.hpp in Sources */,
 				025AE9D52773396300A45ADB /* GLESRenderer.cpp in Sources */,
 				025AE9C0277337DF00A45ADB /* ViewController.swift in Sources */,
 				4FF837F827EE95D400558B94 /* b2MouseJoint.cpp in Sources */,
