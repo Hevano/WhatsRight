@@ -15,10 +15,6 @@
 #include "GameObject.hpp"
 
 
-void GLESRenderer::GLESRenderer(){
-    m_nextTextureSlot = GL_TEXTURE0;
-}
-
 char *GLESRenderer::LoadShaderFile(const char *shaderFileName)
 {
     FILE *fp = fopen(shaderFileName, "rb");

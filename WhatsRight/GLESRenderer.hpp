@@ -33,9 +33,6 @@ class GLESRenderer
 public:
     GLint uniforms[NUM_UNIFORMS];
     float aspect;
-    GLuint m_nextTextureSlot;
-
-    void GLESRenderer();
 
     char *LoadShaderFile(const char *shaderFileName);
     GLuint LoadShader(GLenum type, const char *shaderSrc);

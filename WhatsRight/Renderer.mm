@@ -116,6 +116,7 @@ enum
     
     numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
     g = new GameObject(numIndices, vertices, normals, texCoords, indices);
+    g->m_textureId = 0; //Set object texture;
     
     //Lighting
     specularComponent = glm::vec4(0.8f, 0.1f, 0.1f, 1.0f);

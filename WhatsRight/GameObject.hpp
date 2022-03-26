@@ -35,7 +35,7 @@ public:
     glm::quat m_rotation;
     glm::mat4 m_modelMatrix;
 
-     GLuint m_textureId;
+    int m_textureId;
     
     
 private:
