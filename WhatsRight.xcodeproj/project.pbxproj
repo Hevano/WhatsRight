@@ -67,6 +67,7 @@
 		4FF8381527EE95D400558B94 /* b2BroadPhase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FF837E527EE95D400558B94 /* b2BroadPhase.cpp */; };
 		4FF8381627EE95D400558B94 /* b2CollideEdge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FF837E827EE95D400558B94 /* b2CollideEdge.cpp */; };
 		4FF8381727EE95D400558B94 /* b2Collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FF837E927EE95D400558B94 /* b2Collision.cpp */; };
+		4FF8381A27EE985D00558B94 /* PhysicsManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FF8381827EE985D00558B94 /* PhysicsManager.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -183,6 +184,8 @@
 		4FF837E727EE95D400558B94 /* b2Distance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2Distance.h; sourceTree = "<group>"; };
 		4FF837E827EE95D400558B94 /* b2CollideEdge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2CollideEdge.cpp; sourceTree = "<group>"; };
 		4FF837E927EE95D400558B94 /* b2Collision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2Collision.cpp; sourceTree = "<group>"; };
+		4FF8381827EE985D00558B94 /* PhysicsManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicsManager.cpp; sourceTree = "<group>"; };
+		4FF8381927EE985D00558B94 /* PhysicsManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PhysicsManager.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +238,8 @@
 				025AE9CF2773396200A45ADB /* WhatsRight-Bridging-Header.h */,
 				4FBDC07727C6C3BC005D7A43 /* GameObject.cpp */,
 				4FBDC07827C6C3BC005D7A43 /* GameObject.hpp */,
+				4FF8381827EE985D00558B94 /* PhysicsManager.cpp */,
+				4FF8381927EE985D00558B94 /* PhysicsManager.hpp */,
 			);
 			path = WhatsRight;
 			sourceTree = "<group>";
@@ -474,6 +479,7 @@
 				025AE9D52773396300A45ADB /* GLESRenderer.cpp in Sources */,
 				025AE9C0277337DF00A45ADB /* ViewController.swift in Sources */,
 				4FF837F827EE95D400558B94 /* b2MouseJoint.cpp in Sources */,
+				4FF8381A27EE985D00558B94 /* PhysicsManager.cpp in Sources */,
 				4FF837FB27EE95D400558B94 /* b2WheelJoint.cpp in Sources */,
 				4FD744FF27BD84300063D85A /* GameObject.swift in Sources */,
 				025AE9BC277337DF00A45ADB /* AppDelegate.swift in Sources */,
