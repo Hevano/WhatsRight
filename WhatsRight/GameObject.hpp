@@ -34,11 +34,13 @@ public:
     glm::vec3 m_scale;
     glm::quat m_rotation;
     glm::mat4 m_modelMatrix;
+
+     GLuint m_textureId;
     
     
 private:
     glm::mat4 updateModelMatrix();
-    
+   
     
 };
 
