@@ -15,6 +15,10 @@
 #include "GameObject.hpp"
 
 
+void GLESRenderer::GLESRenderer(){
+    m_nextTextureSlot = GL_TEXTURE0;
+}
+
 char *GLESRenderer::LoadShaderFile(const char *shaderFileName)
 {
     FILE *fp = fopen(shaderFileName, "rb");
@@ -383,6 +387,7 @@ void GLESRenderer::DrawGameObject(GameObject *obj){
     glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, GL_FALSE, (const float *)(&mvp));
     glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEW_MATRIX], 1, GL_FALSE, (const float *)(&mv));
     glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, GL_FALSE, (const float *)(&normalMat));
+    glUniform1i(uniforms[UNIFORM_TEXTURE], 0);
     
     glDrawElements ( GL_TRIANGLES, obj->m_numIndices, GL_UNSIGNED_INT, obj->m_indices );
 }
