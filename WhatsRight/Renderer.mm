@@ -50,6 +50,10 @@ enum
     float *normals, *texCoords;
     int *indices, numIndices;
     GameObject *g;
+    
+    GameObject *obstacles[3];
+
+    int rNum[3];
 }
 
 @end
@@ -73,6 +77,12 @@ enum
 @synthesize transX;
 @synthesize transY;
 
+@synthesize transObstacle;
+@synthesize transCounter;
+@synthesize speedChangeCounter;
+@synthesize speedCap;
+@synthesize score;
+
 - (void)dealloc
 {
     glDeleteProgram(programObject);
@@ -82,7 +92,7 @@ enum
 {
 //    numIndices = glesRenderer.GenSquare(1.0f, &vertices, &indices);
     // ### instead of a cube, you can load any other model
-    numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
+    //numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
 }
 
 - (void)setup:(GLKView *)view
@@ -118,6 +128,12 @@ enum
     g = new GameObject(numIndices, vertices, normals, texCoords, indices);
     g->m_textureId = 0; //Set object texture;
     
+    for (int i = 0; i < sizeof(obstacles)/sizeof(*obstacles); i++)  {
+        printf("%d\n", i);
+        obstacles[i] = new GameObject(numIndices, vertices, normals, texCoords, indices);
+    }
+ 
+    
     //Lighting
     specularComponent = glm::vec4(0.8f, 0.1f, 0.1f, 1.0f);
     specularLightPosition = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
@@ -125,13 +141,39 @@ enum
     ambientComponent = glm::vec4(0.5f, 0.5f, 0.5f, 1.0f);
     diffuseLightPosition = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
     diffuseComponent = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
+    
+    transObstacle = 3;
+    transCounter = 0.0005f;
+    speedChangeCounter = 0;
+    speedCap = 0.01f;
+    score = 0;
+    position.x = 0;
+    
+    for (int i=0; i<3; i++) {
+        rNum[i] = rand()%5+1;
+    }
+    
 }
 
 - (void)update
 {
+    // Function used when a collision occurs
+    //if( boxCollisionDetected ) {
+    //position.x -= 1;
+    if (position.x <= -3) {
+        position.x = 0;
+        printf("Game Over");
+        
+    }
+   // }
+   
     auto currentTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
     lastTime = currentTime;
+    
+    // Variable for Score - Add to UI
+    score += int(elapsedTime) / 30;
+    //printf("Score: %d \n", score );
     
     // ### do any other updating (e.g., changing the rotation angle of an auto-rotating cube) here
     if (isRotating)
@@ -147,20 +189,66 @@ enum
         panRotation.x = 0;
         panRotation.y = 0;
         zoom = -5.0f;
-        position.x = 0;
+        position.x = -1.5;
         position.y = 0;
         //reset position
     }
+    
+    
+    transObstacle -= (0.003f + transCounter) * elapsedTime;
+    
+    //float lastRNum = rNum[0];
+    
+    // Game logic to move obstacles and change the speed over time
+    if(transObstacle < -14){
+        transObstacle = 4;
+        for (int i=0; i<3; i++) {
+            //printf("i: %d\n",i);
+            rNum[i] = rand()%5+1;
+            //printf("rNum: %d\n", rNum[i]);
+            if(i != 0){
+                // printf("rNum[i-1]: %d\n", rNum[i-1]);
+                //printf("rNum: %d\n", rNum[i]);
+                //printf("diff: %d\n", abs(rNum[i-1] - rNum[i]));
+                if (abs(rNum[i-1] - rNum[i]) <= 2) {
+                    rNum[i] = rNum[i] + 3;
+                    //printf("Run Here: %d \n", rNum[i]);
+                    
+                    //printf("condition on: %d \n lastRNum: %d \n", rNum[i], lastRNum);
+                }
+            }
+            
+            
+        }
+        
+        // Used to cap speed at a certain point.
+        // speedChangeCounter changes speed based off how many loops the obstacles ran through.
+        if (speedCap >= transCounter) {
+            speedChangeCounter += 1;
+            if (speedChangeCounter >= 3) {
+                transCounter += 0.0005f;
+                speedChangeCounter = 0;
+                printf("transCounter:  %.6f \n", transCounter);
+            }
+        }
+        
+    }
 
     // Set up a perspective view
-    mvp = GLKMatrix4Translate(GLKMatrix4Identity, position.x, position.y, zoom);
+    //mvp = GLKMatrix4Translate(GLKMatrix4Identity, position.x, position.y, zoom);
     // ### add any other transformations here (e.g., adding a rotation for a cube, or setting up a normal matrix for the shader)
     mvp = GLKMatrix4Rotate(mvp, rotAngle, 0.0, 1.0, 0.0 );
     mvp = GLKMatrix4Rotate(mvp, panRotation.x, 0.0, 0.0, 1.0);
     mvp = GLKMatrix4Rotate(mvp, panRotation.y, 0.0, 1.0, 0.0);
     normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(mvp), NULL);
     
-    g->setPosition(glm::vec3(0, position.y, 0));
+    g->setPosition(glm::vec3(position.x, position.y, 0));
+   
+    
+    for (int i = 0; i < sizeof(obstacles)/sizeof(*obstacles); i++)  {
+        obstacles[i]->setPosition(glm::vec3(transObstacle+rNum[i], i-1, 0));
+    }
+    
     glesRenderer.aspect = (float)theView.drawableWidth / (float)theView.drawableHeight;
 }
 
@@ -193,7 +281,12 @@ enum
     //glesRenderer.DrawCube(0, position.y * 1.5, 0);
     //glesRenderer.DrawCube(0, 0, 0);
     
+    
+    
     glesRenderer.DrawGameObject(g);
+    for (int i = 0; i < sizeof(obstacles)/sizeof(*obstacles); i++) {
+        glesRenderer.DrawGameObject(obstacles[i]);
+    }
 }
 
 
