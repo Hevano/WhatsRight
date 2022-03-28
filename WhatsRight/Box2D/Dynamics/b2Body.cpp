@@ -438,6 +438,27 @@ void b2Body::SetTransform(const b2Vec2& position, float32 angle)
 	}
 }
 
+void b2Body::SetPosition(<#const b2Vec2 &position#>)
+{
+    b2Assert(m_world->IsLocked() == false);
+    if (m_world->IsLocked() == true)
+    {
+        return;
+    }
+
+    m_xf.p = position;
+
+    m_sweep.c = b2Mul(m_xf, m_sweep.localCenter);
+
+    m_sweep.c0 = m_sweep.c;
+
+    b2BroadPhase* broadPhase = &m_world->m_contactManager.m_broadPhase;
+    for (b2Fixture* f = m_fixtureList; f; f = f->m_next)
+    {
+        f->Synchronize(broadPhase, m_xf, m_xf);
+    }
+}
+
 void b2Body::SynchronizeFixtures()
 {
 	b2Transform xf1;

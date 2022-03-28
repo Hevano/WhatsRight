@@ -9,6 +9,7 @@
 #define GameObject_hpp
 
 #include <stdio.h>
+#include <Box2D/Box2D.h>
 #include "glm/glm.hpp"
 #include "glm/gtc/quaternion.hpp"
 #include "glm/gtx/quaternion.hpp"

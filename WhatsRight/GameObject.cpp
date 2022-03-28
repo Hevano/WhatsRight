@@ -28,6 +28,7 @@ void GameObject::setRotation(glm::quat rotation){
 
 void GameObject::setPosition(glm::vec3 position){
     m_position = std::move(position);
+    m_body->SetPosition(b2Vec2(position.x, position.z));
     updateModelMatrix();
 }
 
