@@ -26,8 +26,8 @@ public:
     ~PhysicsManager();
     
     void Update(float elapsedTime);
-    void CreateBody(const GameObject&);
-    void RemoveBody(const GameObject&);
+    void CreateBody(GameObject&);
+    void RemoveBody(GameObject&);
     bool WasHitDetected();
     
 private:

@@ -54,12 +54,17 @@ void PhysicsManager::Update(float elapsedTime){
         }
 };
 
-void PhysicsManager::RemoveBody(const GameObject& g){
-    //world->DestroyBody(g.body)
+void PhysicsManager::RemoveBody(GameObject& g){
+    world->DestroyBody(g.getBody());
+    g.setBody(NULL);
+    hitDetected = false;
 };
 
-void PhysicsManager::CreateBody(const GameObject& g){
-    
+void PhysicsManager::CreateBody(GameObject& g){
+    b2BodyDef bodyDef;
+    bodyDef.type = b2_dynamicBody;
+    bodyDef.position.Set(g.m_position.x, g.m_position.z);
+    g.setBody(world->CreateBody(&bodyDef));
 }
 
 bool PhysicsManager::WasHitDetected(){

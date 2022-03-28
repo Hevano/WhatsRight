@@ -29,17 +29,31 @@ public:
     // ### add additional vertex data (e.g., vertex normals, texture coordinates, etc.) here
     float *m_normals, *m_texCoords;
     int *m_indices, m_numIndices;
+    
 
     glm::vec3 m_position;
     glm::vec3 m_scale;
     glm::quat m_rotation;
     glm::mat4 m_modelMatrix;
+    
+    void setBody(b2Body* body)
+    {
+        m_body = body;
+    }
+    
+    b2Body* getBody()
+    {
+        return m_body;
+    }
 
     int m_textureId;
     
     
+    
+    
 private:
     glm::mat4 updateModelMatrix();
+    b2Body *m_body;
    
     
 };
