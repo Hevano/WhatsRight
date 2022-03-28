@@ -69,17 +69,17 @@ void PhysicsManager::CreateBody(GameObject& g){
     b2PolygonShape dynamicBox;
     dynamicBox.SetAsBox(g.m_scale.x, g.m_scale.z);
     
+    b2BodyDef bodyDef;
+    bodyDef.type = b2_dynamicBody;
+    bodyDef.position.Set(g.m_position.x, g.m_position.z);
+    g.setBody(world->CreateBody(&bodyDef));
+    
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &dynamicBox;
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 0.3f;
     fixtureDef.restitution = 1.0f;
     g.getBody()->CreateFixture(&fixtureDef);
-    
-    b2BodyDef bodyDef;
-    bodyDef.type = b2_dynamicBody;
-    bodyDef.position.Set(g.m_position.x, g.m_position.z);
-    g.setBody(world->CreateBody(&bodyDef));
 }
 
 bool PhysicsManager::WasHitDetected(){
