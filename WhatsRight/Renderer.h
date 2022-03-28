@@ -18,6 +18,11 @@
 @property float transY;
 @property GLKVector2 panRotation;
 @property GLKVector2 position;
+@property float transObstacle;
+@property float transCounter;
+@property float speedChangeCounter;
+@property float speedCap;
+@property int score;
 
 - (void)setup:(GLKView *)view;
 - (void)loadModels;

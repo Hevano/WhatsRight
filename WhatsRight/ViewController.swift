@@ -96,9 +96,10 @@ class ViewController: GLKViewController {
     
     @objc func doDoubleTap(_ sender: UITapGestureRecognizer) {
         // Handle double tap gesture
-        glesRenderer.isRed = !glesRenderer.isRed;
+        //glesRenderer.isRed = !glesRenderer.isRed;
         // You can add additional things here, for example to toggle whether a cube auto-rotates
-        glesRenderer.isRotating = !glesRenderer.isRotating;
+        //glesRenderer.isRotating = !glesRenderer.isRotating;
+        glesRenderer.position.x -= 1;
     }
     
     @objc func buttonClicked(_ sender: Any){
