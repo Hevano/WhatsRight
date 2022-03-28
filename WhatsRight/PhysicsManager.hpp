@@ -17,6 +17,8 @@ const float MAX_TIMESTEP = 1.0f/60.0f;
 const int NUM_VEL_ITERATIONS = 10;
 const int NUM_POS_ITERATIONS = 3;
 
+
+
 class PhysicsManager{
 public:
     bool hitDetected;
@@ -33,6 +35,7 @@ public:
 private:
     b2World *world;
     b2Vec2 *gravity;
+    b2ContactListener *contactListener;
     float totalElapsedTime;
     
 };

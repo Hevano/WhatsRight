@@ -22,6 +22,7 @@ public:
         if (state2[0] == b2_addState)
         {
             manager->hitDetected = true;
+            printf("Collision detected");
         }
     }
     void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse) {};
@@ -30,12 +31,16 @@ public:
 PhysicsManager::PhysicsManager(){
     gravity = new b2Vec2(0, 0);
     world = new b2World(*gravity);
-    totalElapsedTime = 0;
+    contactListener = new CContactListener();
+    ((CContactListener *)contactListener)->manager = this;
+    world->SetContactListener(contactListener);
+    totalElapsedTime = 0.0f;
     
 };
 PhysicsManager::~PhysicsManager(){
     if(gravity) delete gravity;
     if(world) delete world;
+    if(contactListener) delete contactListener;
 };
 
 void PhysicsManager::Update(float elapsedTime){
