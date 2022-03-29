@@ -122,7 +122,7 @@ enum
     glEnable(GL_DEPTH_TEST);
     lastTime = std::chrono::steady_clock::now();
     
-    physics = PhysicsManager();
+    //physics = PhysicsManager();
     
     float *vertices;
     // ### add additional vertex data (e.g., vertex normals, texture coordinates, etc.) here
@@ -131,13 +131,13 @@ enum
     
     numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
     g = new GameObject(numIndices, vertices, normals, texCoords, indices);
-    physics.CreateBody(*(g));
+    //physics.CreateBody(*(g));
     g->m_textureId = 0; //Set object texture;
     
     for (int i = 0; i < sizeof(obstacles)/sizeof(*obstacles); i++)  {
         printf("%d\n", i);
         obstacles[i] = new GameObject(numIndices, vertices, normals, texCoords, indices);
-        physics.CreateBody(*(obstacles[i]));
+        //physics.CreateBody(*(obstacles[i]));
     }
  
     
@@ -169,13 +169,23 @@ enum
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
     lastTime = currentTime;
     
-    physics.Update(elapsedTime);
+    //physics.Update(elapsedTime);
     // Function used when a collision occurs
-    if( physics.WasHitDetected() ) {
+    bool hitDetected = false;
+    for (int i = 0; i < 3; i++)  {
+        glm::vec3 pos = obstacles[i]->m_position;
+        
+        if((g->m_position.x + 0.5 > pos.x && pos.x > g->m_position.x
+            - 0.5) && pos.y == g->m_position.y){
+            hitDetected = true;
+        }
+    }
+    
+    if( hitDetected ) {
         position.x -= 1;
         if (position.x <= -3) {
             position.x = 0;
-            printf("Game Over");
+            printf("Game Over\n");
         
         }
     }

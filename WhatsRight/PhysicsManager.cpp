@@ -67,7 +67,7 @@ void PhysicsManager::RemoveBody(GameObject& g){
 
 void PhysicsManager::CreateBody(GameObject& g){
     b2PolygonShape dynamicBox;
-    dynamicBox.SetAsBox(g.m_scale.x, g.m_scale.z);
+    dynamicBox.SetAsBox(100, 100);
     
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
