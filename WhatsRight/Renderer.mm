@@ -122,6 +122,8 @@ enum
     glEnable(GL_DEPTH_TEST);
     lastTime = std::chrono::steady_clock::now();
     
+    physics = PhysicsManager();
+    
     float *vertices;
     // ### add additional vertex data (e.g., vertex normals, texture coordinates, etc.) here
     float *normals, *texCoords;
@@ -129,11 +131,13 @@ enum
     
     numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
     g = new GameObject(numIndices, vertices, normals, texCoords, indices);
+    physics.CreateBody(*(g));
     g->m_textureId = 0; //Set object texture;
     
     for (int i = 0; i < sizeof(obstacles)/sizeof(*obstacles); i++)  {
         printf("%d\n", i);
         obstacles[i] = new GameObject(numIndices, vertices, normals, texCoords, indices);
+        physics.CreateBody(*(obstacles[i]));
     }
  
     
