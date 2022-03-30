@@ -85,6 +85,10 @@ enum
 @synthesize speedChangeCounter;
 @synthesize speedCap;
 @synthesize score;
+@synthesize gameTime;
+@synthesize timeStamp;
+@synthesize invulnTimer;
+@synthesize isInvuln;
 
 - (void)dealloc
 {
@@ -155,6 +159,10 @@ enum
     speedCap = 0.01f;
     score = 0;
     position.x = 0;
+    gameTime = 0;
+    invulnTimer = 1000;
+    timeStamp = 0;
+    isInvuln = false;
     
     for (int i=0; i<3; i++) {
         rNum[i] = rand()%5+1;
@@ -169,6 +177,9 @@ enum
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
     lastTime = currentTime;
     
+    gameTime += elapsedTime;
+    printf("Game Time: %f\n", (float)gameTime);
+
     //physics.Update(elapsedTime);
     // Function used when a collision occurs
     bool hitDetected = false;
@@ -182,12 +193,18 @@ enum
     }
     
     if( hitDetected ) {
-        position.x -= 1;
-        if (position.x <= -3) {
-            position.x = 0;
-            score = 0;
-            printf("Game Over\n");
-        
+        if(gameTime >= timeStamp){
+            isInvuln = false;
+        }
+        if(!isInvuln){
+            position.x -= 1;
+            isInvuln = true;
+            timeStamp = gameTime + invulnTimer;
+            if (position.x <= -3) {
+                position.x = 0;
+                score = 0;
+                printf("Game Over\n");
+            }
         }
     }
     // Variable for Score - Add to UI
