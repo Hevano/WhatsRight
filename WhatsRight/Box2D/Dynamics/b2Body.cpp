@@ -438,7 +438,7 @@ void b2Body::SetTransform(const b2Vec2& position, float32 angle)
 	}
 }
 
-void b2Body::SetPosition(<#const b2Vec2 &position#>)
+void b2Body::SetPosition(const b2Vec2 &position)
 {
     b2Assert(m_world->IsLocked() == false);
     if (m_world->IsLocked() == true)
