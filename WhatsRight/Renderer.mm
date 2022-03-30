@@ -195,6 +195,7 @@ enum
         position.x -= 1;
         if (position.x <= -3) {
             position.x = 0;
+            score = 0;
             printf("Game Over\n");
         
         }

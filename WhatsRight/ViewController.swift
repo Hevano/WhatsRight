@@ -75,8 +75,9 @@ class ViewController: GLKViewController {
 //
 //        button.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside);
         
+        //Set up score label
         scoreLabel = UILabel();
-        scoreLabel.text = "Score: ";
+        scoreLabel.text = "Score: " + glesRenderer.score.description;
         scoreLabel.frame = CGRect(x: 0, y: 75, width: 300, height: 50);
         scoreLabel.textAlignment = .center;
         scoreLabel.isEnabled = true;
@@ -98,6 +99,8 @@ class ViewController: GLKViewController {
     
     override func glkView(_ view: GLKView, drawIn rect: CGRect) {
         glesRenderer.draw(rect);    // use our custom GLES renderer object to make the actual GL draw calls
+        glesRenderer.score = glesRenderer.score + 1;
+        scoreLabel.text = "Score: " + glesRenderer.score.description;
         transformLabel.text = String(format: "Rotation: %.2f, %.2f, %.2f", glesRenderer.panRotation.x, glesRenderer.rotAngle.description, glesRenderer.panRotation.y.description);
         transformLabel.text! += " \n Position: " + glesRenderer.position.x.description + ", "
         transformLabel.text! += glesRenderer.position.y.description + ", 0" + glesRenderer.zoom.description;

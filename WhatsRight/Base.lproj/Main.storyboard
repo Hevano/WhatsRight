@@ -15,30 +15,9 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="GLKView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X3o-Iu-qfc">
-                                <rect key="frame" x="130" y="170" width="155" height="68"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="68" id="4NQ-jD-6wt"/>
-                                    <constraint firstAttribute="width" constant="155" id="Og2-MB-q0I"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="X3o-Iu-qfc" secondAttribute="bottom" constant="624" id="ObR-OC-dys"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="X3o-Iu-qfc" secondAttribute="trailing" constant="129" id="TGl-K0-fLP"/>
-                            <constraint firstItem="X3o-Iu-qfc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="130" id="mJi-KY-upY"/>
-                            <constraint firstItem="X3o-Iu-qfc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="126" id="vxU-bE-uXR"/>
-                        </constraints>
                     </view>
-                    <connections>
-                        <outlet property="ScoreLabel" destination="X3o-Iu-qfc" id="L5Y-eX-AW5"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
