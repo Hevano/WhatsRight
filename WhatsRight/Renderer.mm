@@ -163,7 +163,7 @@ enum
     diffuseLightPosition = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
     diffuseComponent = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
     
-    transObstacle = 3;
+    transObstacle = -15;
     transCounter = 0.0005f;
     speedChangeCounter = 0;
     speedCap = 0.01f;
@@ -188,7 +188,6 @@ enum
     lastTime = currentTime;
     
     gameTime += elapsedTime;
-    printf("Game Time: %f\n", (float)gameTime);
 
     //physics.Update(elapsedTime);
     // Function used when a collision occurs
@@ -203,9 +202,7 @@ enum
     }
     
     if( hitDetected ) {
-        if(gameTime >= timeStamp){
-            isInvuln = false;
-        }
+        if(gameTime >= timeStamp)isInvuln = false;
         if(!isInvuln){
             position.x -= 1;
             isInvuln = true;
@@ -249,22 +246,12 @@ enum
     if(transObstacle < -14){
         transObstacle = 4;
         for (int i=0; i<3; i++) {
-            //printf("i: %d\n",i);
             rNum[i] = rand()%5+1;
-            //printf("rNum: %d\n", rNum[i]);
             if(i != 0){
-                // printf("rNum[i-1]: %d\n", rNum[i-1]);
-                //printf("rNum: %d\n", rNum[i]);
-                //printf("diff: %d\n", abs(rNum[i-1] - rNum[i]));
                 if (abs(rNum[i-1] - rNum[i]) <= 2) {
                     rNum[i] = rNum[i] + 3;
-                    //printf("Run Here: %d \n", rNum[i]);
-                    
-                    //printf("condition on: %d \n lastRNum: %d \n", rNum[i], lastRNum);
                 }
             }
-            
-            
         }
         
         // Used to cap speed at a certain point.
