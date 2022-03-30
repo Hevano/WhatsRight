@@ -13,10 +13,10 @@ extension ViewController: GLKViewControllerDelegate {
 }
 
 class ViewController: GLKViewController {
-    
     private var context: EAGLContext?       // EAGL context for GL draw commands
     private var glesRenderer: Renderer!     // our own C++ GLES renderer object
     private var button : UIButton!
+    private var scoreLabel : UILabel!
     private var transformLabel : UILabel!
     
     private func setupGL() {
@@ -74,6 +74,15 @@ class ViewController: GLKViewController {
 //        self.view.addSubview(button);
 //
 //        button.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside);
+        
+        scoreLabel = UILabel();
+        scoreLabel.text = "Score: ";
+        scoreLabel.frame = CGRect(x: 0, y: 75, width: 300, height: 50);
+        scoreLabel.textAlignment = .center;
+        scoreLabel.isEnabled = true;
+        scoreLabel.textColor = .white;
+        scoreLabel.numberOfLines = 1;
+        self.view.addSubview(scoreLabel);
         
         //Set up transform label
         transformLabel = UILabel();
