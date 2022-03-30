@@ -23,6 +23,10 @@
 @property float speedChangeCounter;
 @property float speedCap;
 @property int score;
+@property float gameTime;
+@property float timeStamp;
+@property float invulnTimer;
+@property bool isInvuln;
 
 - (void)setup:(GLKView *)view;
 - (void)loadModels;
