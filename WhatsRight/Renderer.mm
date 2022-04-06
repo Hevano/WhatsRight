@@ -8,6 +8,8 @@
 #include <chrono>
 #include "GLESRenderer.hpp"
 #include "PhysicsManager.hpp"
+#include "objloader.hpp"
+#include <vector>
 
 // These are GL indices for uniform variables used by GLSL shaders.
 // You can add additional ones, for example for a normal matrix,
@@ -129,9 +131,17 @@ enum
     float *normals, *texCoords;
     int *indices, numIndices;
     
-    numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
-    g = new GameObject(numIndices, vertices, normals, texCoords, indices);
+    //numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
+    
+    std::vector<glm::vec3> modelVertices;
+    std::vector<glm::vec2> modelUvs;
+    std::vector<glm::vec3> modelNormals;
+    std::vector<int> modelIndices;
+    bool res = loadOBJ("cube.obj", modelVertices, modelUvs, modelNormals, modelIndices);
+    numIndices = modelVertices.size();
+    g = new GameObject(numIndices, (float*) (&modelVertices[0].x), (float*) (&modelNormals[0].x), (float*) (&modelUvs[0].x), (int*) (&modelIndices[0]));
     //physics.CreateBody(*(g));
+    numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
     g->m_textureId = 0; //Set object texture;
     
     for (int i = 0; i < sizeof(obstacles)/sizeof(*obstacles); i++)  {
