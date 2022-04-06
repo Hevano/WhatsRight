@@ -141,8 +141,8 @@ enum
     int *indices, numIndices;
     
     //numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
-
-    bool res = loadOBJ("/Users/ehirabe/Documents/WhatsRight/WhatsRight/cube.obj", modelVertices, modelUvs, modelNormals, modelIndices);
+    auto path = [[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"cube.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"cube.obj"] pathExtension]] cStringUsingEncoding:1];
+    bool res = loadOBJ(path, modelVertices, modelUvs, modelNormals, modelIndices);
     numIndices = modelVertices.size();
     g = new GameObject(numIndices, (float*) (&modelVertices[0].x), (float*) (&modelNormals[0].x), (float*) (&modelUvs[0].x), (int*) (&modelIndices[0]));
     //physics.CreateBody(*(g));
