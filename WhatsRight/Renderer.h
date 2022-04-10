@@ -27,6 +27,9 @@
 @property float timeStamp;
 @property float invulnTimer;
 @property bool isInvuln;
+@property bool youLost;
+@property int highScore;
+@property bool pauseGame;
 
 - (void)setup:(GLKView *)view;
 - (void)loadModels;

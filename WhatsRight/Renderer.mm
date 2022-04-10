@@ -96,6 +96,9 @@ enum
 @synthesize timeStamp;
 @synthesize invulnTimer;
 @synthesize isInvuln;
+@synthesize youLost;
+@synthesize highScore;
+@synthesize pauseGame;
 
 - (void)dealloc
 {
@@ -175,6 +178,8 @@ enum
     invulnTimer = 1000;
     timeStamp = 0;
     isInvuln = false;
+    youLost = false;
+    pauseGame = false;
     
     for (int i=0; i<3; i++) {
         rNum[i] = rand()%5+1;
@@ -210,14 +215,24 @@ enum
             isInvuln = true;
             timeStamp = gameTime + invulnTimer;
             if (position.x <= -3) {
+                youLost = true;
+                if (score > highScore) {
+                    highScore = score;
+                }
                 position.x = 0;
                 score = 0;
+                transCounter = 0.0005f;
+                pauseGame = true;
                 printf("Game Over\n");
             }
         }
     }
-    // Variable for Score - Add to UI
-    score += int(elapsedTime) / 30;
+    
+    if (pauseGame == false) {
+        // Variable for Score - Add to UI
+        score += int(elapsedTime) / 30;
+    }
+    
     //printf("Score: %d \n", score );
     
     // ### do any other updating (e.g., changing the rotation angle of an auto-rotating cube) here
@@ -239,8 +254,9 @@ enum
         //reset position
     }
     
-    
-    transObstacle -= (0.003f + transCounter) * elapsedTime;
+    if (pauseGame == false) {
+        transObstacle -= (0.003f + transCounter) * elapsedTime;
+    }
     
     //float lastRNum = rNum[0];
     
