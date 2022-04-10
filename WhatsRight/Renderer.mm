@@ -37,6 +37,7 @@ enum
     // ### add additional ones (e.g., texture IDs, normal matrices, etc.) here
     GLKMatrix3 normalMatrix;
     GLuint crateTexture;
+    GLuint shipTexture;
     
     // global lighting parameters
     glm::vec4 specularLightPosition;
@@ -124,10 +125,13 @@ enum
         return;
 
     // ### you should also load any textures needed here (you can use the setupTexture method below to load in a JPEG image and assign it to a GL texture)
-    crateTexture = [self setupTexture:@"crate.jpg"];
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, crateTexture);
+    crateTexture = [self setupTexture:@"crate.jpg"];
     glUniform1i(glesRenderer.uniforms[UNIFORM_TEXTURE], 0);
+    
+    glActiveTexture(GL_TEXTURE1);
+    shipTexture = [self setupTexture:@"SpaceShipTex.png"];
+    glUniform1i(glesRenderer.uniforms[UNIFORM_TEXTURE], 1);
 
     glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f ); // background color
     glEnable(GL_DEPTH_TEST);
@@ -148,12 +152,14 @@ enum
     //physics.CreateBody(*(g));
     numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
     //g = new GameObject(numIndices, vertices, normals, texCoords, indices);
-    g->m_textureId = 0; //Set object texture;
+    g->m_textureId = 1; //Set object texture;
     
     for (int i = 0; i < sizeof(obstacles)/sizeof(*obstacles); i++)  {
         printf("%d\n", i);
         obstacles[i] = new GameObject(numIndices, vertices, normals, texCoords, indices);
         //physics.CreateBody(*(obstacles[i]));
+        obstacles[i]->m_textureId = 0;
+        
     }
  
     
