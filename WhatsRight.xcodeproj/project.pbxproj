@@ -99,6 +99,7 @@
 		4FADC07327FE0CD700DD07EE /* cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cube.obj; sourceTree = "<group>"; };
 		4FBDC07727C6C3BC005D7A43 /* GameObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameObject.cpp; sourceTree = "<group>"; };
 		4FBDC07827C6C3BC005D7A43 /* GameObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GameObject.hpp; sourceTree = "<group>"; };
+		4FCB57492804F66A006C8EAB /* WhatsRight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WhatsRight.entitlements; sourceTree = "<group>"; };
 		4FCE0E9128028896006428EA /* Spaceship.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Spaceship.obj; sourceTree = "<group>"; };
 		4FCE0E932802966C006428EA /* SpaceShipTex.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpaceShipTex.png; sourceTree = "<group>"; };
 		4FCE2FEB2804E3B500EA5703 /* Rock.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Rock.obj; sourceTree = "<group>"; };
@@ -231,6 +232,7 @@
 		025AE9BA277337DF00A45ADB /* WhatsRight */ = {
 			isa = PBXGroup;
 			children = (
+				4FCB57492804F66A006C8EAB /* WhatsRight.entitlements */,
 				4FF8378527EE95D300558B94 /* Box2D */,
 				4F88A6AA27C5CD8F009D8051 /* glm */,
 				025AE9D32773396300A45ADB /* GLESRenderer.cpp */,
@@ -703,8 +705,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = WhatsRight/WhatsRight.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 45D575XQ8L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WhatsRight/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -735,8 +739,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = WhatsRight/WhatsRight.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 45D575XQ8L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WhatsRight/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
