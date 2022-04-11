@@ -25,6 +25,7 @@
 		4FBDC07927C6C3BC005D7A43 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDC07727C6C3BC005D7A43 /* GameObject.cpp */; };
 		4FCE0E9228028896006428EA /* Spaceship.obj in Resources */ = {isa = PBXBuildFile; fileRef = 4FCE0E9128028896006428EA /* Spaceship.obj */; };
 		4FCE0E942802966C006428EA /* SpaceShipTex.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FCE0E932802966C006428EA /* SpaceShipTex.png */; };
+		4FCE2FEC2804E3B500EA5703 /* Rock.obj in Resources */ = {isa = PBXBuildFile; fileRef = 4FCE2FEB2804E3B500EA5703 /* Rock.obj */; };
 		4FD744FF27BD84300063D85A /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD744FE27BD84300063D85A /* GameObject.swift */; };
 		4FF837EA27EE95D400558B94 /* b2Body.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FF8378727EE95D300558B94 /* b2Body.cpp */; };
 		4FF837EB27EE95D400558B94 /* b2World.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FF8378827EE95D300558B94 /* b2World.cpp */; };
@@ -100,6 +101,7 @@
 		4FBDC07827C6C3BC005D7A43 /* GameObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GameObject.hpp; sourceTree = "<group>"; };
 		4FCE0E9128028896006428EA /* Spaceship.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Spaceship.obj; sourceTree = "<group>"; };
 		4FCE0E932802966C006428EA /* SpaceShipTex.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpaceShipTex.png; sourceTree = "<group>"; };
+		4FCE2FEB2804E3B500EA5703 /* Rock.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Rock.obj; sourceTree = "<group>"; };
 		4FD744FE27BD84300063D85A /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
 		4FF8378727EE95D300558B94 /* b2Body.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2Body.cpp; sourceTree = "<group>"; };
 		4FF8378827EE95D300558B94 /* b2World.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2World.cpp; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 				4FADC07127FE0C2800DD07EE /* objloader.cpp */,
 				4FADC07327FE0CD700DD07EE /* cube.obj */,
 				4FCE0E9128028896006428EA /* Spaceship.obj */,
+				4FCE2FEB2804E3B500EA5703 /* Rock.obj */,
 			);
 			path = WhatsRight;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				025AE9DB277339C700A45ADB /* crate.jpg in Resources */,
 				025AE9C3277337DF00A45ADB /* Main.storyboard in Resources */,
 				4FCE0E9228028896006428EA /* Spaceship.obj in Resources */,
+				4FCE2FEC2804E3B500EA5703 /* Rock.obj in Resources */,
 				025AE9D9277339AF00A45ADB /* Shader.vsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

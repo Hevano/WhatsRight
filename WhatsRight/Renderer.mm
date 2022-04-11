@@ -60,6 +60,11 @@ enum
     std::vector<glm::vec3> modelNormals;
     std::vector<int> modelIndices;
     
+    std::vector<glm::vec3> obstacleVertices;
+    std::vector<glm::vec2> obstacleUvs;
+    std::vector<glm::vec3> obstacleNormals;
+    std::vector<int> obstacleIndices;
+    
     GameObject *obstacles[3];
     
     PhysicsManager physics;
@@ -154,9 +159,13 @@ enum
     //g = new GameObject(numIndices, vertices, normals, texCoords, indices);
     g->m_textureId = 1; //Set object texture;
     
+    path = [[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"Rock.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"Rock.obj"] pathExtension]] cStringUsingEncoding:1];
+    res = loadOBJ(path, obstacleVertices, obstacleUvs, obstacleNormals, obstacleIndices);
+    numIndices = obstacleVertices.size();
+    
     for (int i = 0; i < sizeof(obstacles)/sizeof(*obstacles); i++)  {
         printf("%d\n", i);
-        obstacles[i] = new GameObject(numIndices, vertices, normals, texCoords, indices);
+        obstacles[i] = new GameObject(numIndices, (float*) (&obstacleVertices[0].x), (float*) (&obstacleNormals[0].x), (float*) (&obstacleUvs[0].x), (int*) (&obstacleIndices[0]));
         //physics.CreateBody(*(obstacles[i]));
         obstacles[i]->m_textureId = 0;
         
