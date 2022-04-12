@@ -106,6 +106,7 @@ enum
 @synthesize highScore;
 @synthesize pauseGame;
 @synthesize playHitSound;
+@synthesize firstHit;
 
 - (void)dealloc
 {
@@ -197,6 +198,7 @@ enum
     youLost = false;
     pauseGame = false;
     playHitSound = false;
+    firstHit = true;
     
     for (int i=0; i<3; i++) {
         rNum[i] = rand()%5+1;
@@ -228,20 +230,27 @@ enum
     if( hitDetected ) {
         if(gameTime >= timeStamp)isInvuln = false;
         if(!isInvuln){
-            playHitSound = true;
-            position.x -= 1;
-            isInvuln = true;
-            timeStamp = gameTime + invulnTimer;
-            if (position.x <= -3) {
-                youLost = true;
-                if (score > highScore) {
-                    highScore = score;
+            if (firstHit) {
+                firstHit = false;
+            } else {
+    
+                playHitSound = true;
+                position.x -= 1;
+                isInvuln = true;
+                timeStamp = gameTime + invulnTimer;
+                if (position.x <= -3) {
+                    youLost = true;
+                    if (score > highScore) {
+                        highScore = score;
+                    }
+                    position.x = 0;
+                    score = 0;
+                    transCounter = 0.0005f;
+                    pauseGame = true;
+                    printf("Game Over\n");
+                    
                 }
-                position.x = 0;
-                score = 0;
-                transCounter = 0.0005f;
-                pauseGame = true;
-                printf("Game Over\n");
+            
             }
         }
     }

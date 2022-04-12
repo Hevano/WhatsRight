@@ -31,6 +31,7 @@
 @property int highScore;
 @property bool pauseGame;
 @property bool playHitSound;
+@property bool firstHit;
 
 - (void)setup:(GLKView *)view;
 - (void)loadModels;
