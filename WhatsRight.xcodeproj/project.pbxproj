@@ -18,12 +18,14 @@
 		025AE9D8277339AF00A45ADB /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 025AE9D6277339AE00A45ADB /* Shader.fsh */; };
 		025AE9D9277339AF00A45ADB /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 025AE9D7277339AF00A45ADB /* Shader.vsh */; };
 		025AE9DB277339C700A45ADB /* crate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 025AE9DA277339C700A45ADB /* crate.jpg */; };
-		26E4CAC5280256740064A0C7 /* Hit.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 26E4CAC4280256740064A0C7 /* Hit.mp3 */; };
 		4F16965127EEC10B00793D5B /* PhysicsManager.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FF8381927EE985D00558B94 /* PhysicsManager.hpp */; };
 		4F88A6AB27C5CD8F009D8051 /* glm in Resources */ = {isa = PBXBuildFile; fileRef = 4F88A6AA27C5CD8F009D8051 /* glm */; };
 		4FADC07227FE0C2800DD07EE /* objloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FADC07127FE0C2800DD07EE /* objloader.cpp */; };
 		4FADC07427FE0CD700DD07EE /* cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = 4FADC07327FE0CD700DD07EE /* cube.obj */; };
 		4FBDC07927C6C3BC005D7A43 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FBDC07727C6C3BC005D7A43 /* GameObject.cpp */; };
+		4FCE0E9228028896006428EA /* Spaceship.obj in Resources */ = {isa = PBXBuildFile; fileRef = 4FCE0E9128028896006428EA /* Spaceship.obj */; };
+		4FCE0E942802966C006428EA /* SpaceShipTex.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FCE0E932802966C006428EA /* SpaceShipTex.png */; };
+		4FCE2FEC2804E3B500EA5703 /* Rock.obj in Resources */ = {isa = PBXBuildFile; fileRef = 4FCE2FEB2804E3B500EA5703 /* Rock.obj */; };
 		4FD744FF27BD84300063D85A /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD744FE27BD84300063D85A /* GameObject.swift */; };
 		4FF837EA27EE95D400558B94 /* b2Body.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FF8378727EE95D300558B94 /* b2Body.cpp */; };
 		4FF837EB27EE95D400558B94 /* b2World.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FF8378827EE95D300558B94 /* b2World.cpp */; };
@@ -91,14 +93,16 @@
 		025AE9D6277339AE00A45ADB /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
 		025AE9D7277339AF00A45ADB /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
 		025AE9DA277339C700A45ADB /* crate.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = crate.jpg; sourceTree = "<group>"; };
-		26E4CAC4280256740064A0C7 /* Hit.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Hit.mp3; sourceTree = "<group>"; };
 		4F88A6AA27C5CD8F009D8051 /* glm */ = {isa = PBXFileReference; lastKnownFileType = folder; path = glm; sourceTree = "<group>"; };
 		4FADC07027FE0C2200DD07EE /* objloader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = objloader.hpp; sourceTree = "<group>"; };
 		4FADC07127FE0C2800DD07EE /* objloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = objloader.cpp; sourceTree = "<group>"; };
 		4FADC07327FE0CD700DD07EE /* cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cube.obj; sourceTree = "<group>"; };
-		4FADC07527FE0CDB00DD07EE /* uvmap.DDS */ = {isa = PBXFileReference; lastKnownFileType = file; path = uvmap.DDS; sourceTree = "<group>"; };
 		4FBDC07727C6C3BC005D7A43 /* GameObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameObject.cpp; sourceTree = "<group>"; };
 		4FBDC07827C6C3BC005D7A43 /* GameObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GameObject.hpp; sourceTree = "<group>"; };
+		4FCB57492804F66A006C8EAB /* WhatsRight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WhatsRight.entitlements; sourceTree = "<group>"; };
+		4FCE0E9128028896006428EA /* Spaceship.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Spaceship.obj; sourceTree = "<group>"; };
+		4FCE0E932802966C006428EA /* SpaceShipTex.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpaceShipTex.png; sourceTree = "<group>"; };
+		4FCE2FEB2804E3B500EA5703 /* Rock.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Rock.obj; sourceTree = "<group>"; };
 		4FD744FE27BD84300063D85A /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
 		4FF8378727EE95D300558B94 /* b2Body.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2Body.cpp; sourceTree = "<group>"; };
 		4FF8378827EE95D300558B94 /* b2World.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2World.cpp; sourceTree = "<group>"; };
@@ -228,6 +232,7 @@
 		025AE9BA277337DF00A45ADB /* WhatsRight */ = {
 			isa = PBXGroup;
 			children = (
+				4FCB57492804F66A006C8EAB /* WhatsRight.entitlements */,
 				4FF8378527EE95D300558B94 /* Box2D */,
 				4F88A6AA27C5CD8F009D8051 /* glm */,
 				025AE9D32773396300A45ADB /* GLESRenderer.cpp */,
@@ -237,6 +242,7 @@
 				025AE9D6277339AE00A45ADB /* Shader.fsh */,
 				025AE9D7277339AF00A45ADB /* Shader.vsh */,
 				025AE9DA277339C700A45ADB /* crate.jpg */,
+				4FCE0E932802966C006428EA /* SpaceShipTex.png */,
 				025AE9BB277337DF00A45ADB /* AppDelegate.swift */,
 				025AE9BD277337DF00A45ADB /* SceneDelegate.swift */,
 				025AE9BF277337DF00A45ADB /* ViewController.swift */,
@@ -252,8 +258,8 @@
 				4FADC07027FE0C2200DD07EE /* objloader.hpp */,
 				4FADC07127FE0C2800DD07EE /* objloader.cpp */,
 				4FADC07327FE0CD700DD07EE /* cube.obj */,
-				4FADC07527FE0CDB00DD07EE /* uvmap.DDS */,
-				26E4CAC4280256740064A0C7 /* Hit.mp3 */,
+				4FCE0E9128028896006428EA /* Spaceship.obj */,
+				4FCE2FEB2804E3B500EA5703 /* Rock.obj */,
 			);
 			path = WhatsRight;
 			sourceTree = "<group>";
@@ -476,11 +482,13 @@
 				4FADC07427FE0CD700DD07EE /* cube.obj in Resources */,
 				025AE9D8277339AF00A45ADB /* Shader.fsh in Resources */,
 				025AE9C8277337E200A45ADB /* LaunchScreen.storyboard in Resources */,
-				26E4CAC5280256740064A0C7 /* Hit.mp3 in Resources */,
+				4FCE0E942802966C006428EA /* SpaceShipTex.png in Resources */,
 				4F88A6AB27C5CD8F009D8051 /* glm in Resources */,
 				025AE9C5277337E200A45ADB /* Assets.xcassets in Resources */,
 				025AE9DB277339C700A45ADB /* crate.jpg in Resources */,
 				025AE9C3277337DF00A45ADB /* Main.storyboard in Resources */,
+				4FCE0E9228028896006428EA /* Spaceship.obj in Resources */,
+				4FCE2FEC2804E3B500EA5703 /* Rock.obj in Resources */,
 				025AE9D9277339AF00A45ADB /* Shader.vsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -697,8 +705,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = WhatsRight/WhatsRight.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 45D575XQ8L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WhatsRight/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -729,8 +739,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = WhatsRight/WhatsRight.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 45D575XQ8L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WhatsRight/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

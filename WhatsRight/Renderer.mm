@@ -37,6 +37,7 @@ enum
     // ### add additional ones (e.g., texture IDs, normal matrices, etc.) here
     GLKMatrix3 normalMatrix;
     GLuint crateTexture;
+    GLuint shipTexture;
     
     // global lighting parameters
     glm::vec4 specularLightPosition;
@@ -58,6 +59,11 @@ enum
     std::vector<glm::vec2> modelUvs;
     std::vector<glm::vec3> modelNormals;
     std::vector<int> modelIndices;
+    
+    std::vector<glm::vec3> obstacleVertices;
+    std::vector<glm::vec2> obstacleUvs;
+    std::vector<glm::vec3> obstacleNormals;
+    std::vector<int> obstacleIndices;
     
     GameObject *obstacles[3];
     
@@ -127,10 +133,13 @@ enum
         return;
 
     // ### you should also load any textures needed here (you can use the setupTexture method below to load in a JPEG image and assign it to a GL texture)
-    crateTexture = [self setupTexture:@"crate.jpg"];
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, crateTexture);
+    crateTexture = [self setupTexture:@"crate.jpg"];
     glUniform1i(glesRenderer.uniforms[UNIFORM_TEXTURE], 0);
+    
+    glActiveTexture(GL_TEXTURE1);
+    shipTexture = [self setupTexture:@"SpaceShipTex.png"];
+    glUniform1i(glesRenderer.uniforms[UNIFORM_TEXTURE], 1);
 
     glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f ); // background color
     glEnable(GL_DEPTH_TEST);
@@ -144,19 +153,25 @@ enum
     int *indices, numIndices;
     
     //numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
-    auto path = [[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"cube.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"cube.obj"] pathExtension]] cStringUsingEncoding:1];
+    auto path = [[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"Spaceship.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"Spaceship.obj"] pathExtension]] cStringUsingEncoding:1];
     bool res = loadOBJ(path, modelVertices, modelUvs, modelNormals, modelIndices);
     numIndices = modelVertices.size();
     g = new GameObject(numIndices, (float*) (&modelVertices[0].x), (float*) (&modelNormals[0].x), (float*) (&modelUvs[0].x), (int*) (&modelIndices[0]));
     //physics.CreateBody(*(g));
     numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
     //g = new GameObject(numIndices, vertices, normals, texCoords, indices);
-    g->m_textureId = 0; //Set object texture;
+    g->m_textureId = 1; //Set object texture;
+    
+    path = [[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"Rock.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"Rock.obj"] pathExtension]] cStringUsingEncoding:1];
+    res = loadOBJ(path, obstacleVertices, obstacleUvs, obstacleNormals, obstacleIndices);
+    numIndices = obstacleVertices.size();
     
     for (int i = 0; i < sizeof(obstacles)/sizeof(*obstacles); i++)  {
         printf("%d\n", i);
-        obstacles[i] = new GameObject(numIndices, vertices, normals, texCoords, indices);
+        obstacles[i] = new GameObject(numIndices, (float*) (&obstacleVertices[0].x), (float*) (&obstacleNormals[0].x), (float*) (&obstacleUvs[0].x), (int*) (&obstacleIndices[0]));
         //physics.CreateBody(*(obstacles[i]));
+        obstacles[i]->m_textureId = 0;
+        
     }
  
     
