@@ -3,6 +3,45 @@
 //
 
 import GLKit    // use GLKit to treat the iOS display as one that can receive GL draw commands
+import AVFoundation
+
+var player: AVAudioPlayer?
+var bgMusic: AVAudioPlayer?
+
+func playSound() {
+    guard let url = Bundle.main.url(forResource: "ShipMove", withExtension: ".wav") else { return }
+    
+    do {
+        player = try AVAudioPlayer(contentsOf: url)
+        player?.play()
+    } catch let error {
+        print("Error playing sound. \(error.localizedDescription)")
+    }
+}
+
+func playSoundHit() {
+    guard let url = Bundle.main.url(forResource: "ShipHit", withExtension: ".mp3") else { return }
+    
+    do {
+        player = try AVAudioPlayer(contentsOf: url)
+        player?.play()
+    } catch let error {
+        print("Error playing sound. \(error.localizedDescription)")
+    }
+}
+
+func playSoundBG() {
+    guard let url = Bundle.main.url(forResource: "BGMusic", withExtension: ".wav") else { return }
+    
+    do {
+        bgMusic = try AVAudioPlayer(contentsOf: url)
+        bgMusic?.prepareToPlay()
+        bgMusic?.numberOfLoops = -1
+        bgMusic?.play()
+    } catch let error {
+        print("Error playing sound. \(error.localizedDescription)")
+    }
+}
 
 // This enables using the GLKit update method to call our own update
 extension ViewController: GLKViewControllerDelegate {
@@ -37,8 +76,11 @@ class ViewController: GLKViewController {
     override func viewDidLoad() {
         // This gets called as soon as the view is loaded
         super.viewDidLoad()
-        setupGL()   // call this to set up our GL environment
+        playSoundBG()
         
+        
+        setupGL()   // call this to set up our GL environment
+        //playSoundBG()
         // set up swipe gestures
         let SwipeUp = UISwipeGestureRecognizer(target: self, action: #selector(self.doSwipeUp))
         SwipeUp.direction = UISwipeGestureRecognizer.Direction.up
@@ -62,7 +104,7 @@ class ViewController: GLKViewController {
         //Set up reset button
         restartButton = UIButton(type: .system)
         restartButton.frame = CGRect(x: 200, y: 120, width: 200, height: 100);
-        restartButton.backgroundColor = .white;
+        //restartButton.backgroundColor = .white;
         restartButton.setTitle("Restart", for: .normal);
         restartButton.isEnabled = false;
         restartButton.isHidden = true;
@@ -91,6 +133,7 @@ class ViewController: GLKViewController {
         highscoreLabel.textColor = .white;
         self.view.addSubview(highscoreLabel);
         
+        
     }
     
     override func glkView(_ view: GLKView, drawIn rect: CGRect) {
@@ -109,6 +152,11 @@ class ViewController: GLKViewController {
             restartButton.isEnabled = true;
             restartButton.isHidden = false;
             glesRenderer.youLost = false;
+        }
+        
+        if (glesRenderer.playHitSound == true) {
+            glesRenderer.playHitSound = false;
+            playSoundHit();
         }
     }
     
@@ -134,6 +182,7 @@ class ViewController: GLKViewController {
                 glesRenderer.position.y += 1;
                 print("Swipe Active");
                 print(glesRenderer.position.y);
+                playSound();
             }
         }
     }
@@ -146,6 +195,7 @@ class ViewController: GLKViewController {
                 glesRenderer.position.y -= 1;
                 print("Swipe Active");
                 print(glesRenderer.position.y)
+                playSound();
             }
         }
     }

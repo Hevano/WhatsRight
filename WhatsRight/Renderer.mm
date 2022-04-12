@@ -105,6 +105,7 @@ enum
 @synthesize youLost;
 @synthesize highScore;
 @synthesize pauseGame;
+@synthesize playHitSound;
 
 - (void)dealloc
 {
@@ -195,6 +196,7 @@ enum
     isInvuln = false;
     youLost = false;
     pauseGame = false;
+    playHitSound = false;
     
     for (int i=0; i<3; i++) {
         rNum[i] = rand()%5+1;
@@ -226,6 +228,7 @@ enum
     if( hitDetected ) {
         if(gameTime >= timeStamp)isInvuln = false;
         if(!isInvuln){
+            playHitSound = true;
             position.x -= 1;
             isInvuln = true;
             timeStamp = gameTime + invulnTimer;
@@ -242,6 +245,7 @@ enum
             }
         }
     }
+    
     
     if (pauseGame == false) {
         // Variable for Score - Add to UI

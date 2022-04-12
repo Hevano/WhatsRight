@@ -30,6 +30,7 @@
 @property bool youLost;
 @property int highScore;
 @property bool pauseGame;
+@property bool playHitSound;
 
 - (void)setup:(GLKView *)view;
 - (void)loadModels;
