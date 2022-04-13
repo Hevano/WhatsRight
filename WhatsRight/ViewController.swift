@@ -133,6 +133,7 @@ class ViewController: GLKViewController {
         highscoreLabel.textColor = .white;
         self.view.addSubview(highscoreLabel);
         
+        UserDefaults.standard.set(glesRenderer.highScore, forKey: "score")
         
     }
     
