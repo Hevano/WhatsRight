@@ -8,6 +8,8 @@
 #include <chrono>
 #include "GLESRenderer.hpp"
 #include "PhysicsManager.hpp"
+#include "objloader.hpp"
+#include <vector>
 
 // These are GL indices for uniform variables used by GLSL shaders.
 // You can add additional ones, for example for a normal matrix,
@@ -35,6 +37,7 @@ enum
     // ### add additional ones (e.g., texture IDs, normal matrices, etc.) here
     GLKMatrix3 normalMatrix;
     GLuint crateTexture;
+    GLuint shipTexture;
     
     // global lighting parameters
     glm::vec4 specularLightPosition;
@@ -44,6 +47,9 @@ enum
     glm::vec4 diffuseLightPosition;
     glm::vec4 diffuseComponent;
     
+    float obstacleRotation;
+    float obstacleRotationSpeed;
+    
 
     // GL vertex data (minimum X,Y,Z location)
     float *vertices;
@@ -51,6 +57,16 @@ enum
     float *normals, *texCoords;
     int *indices, numIndices;
     GameObject *g;
+    
+    std::vector<glm::vec3> modelVertices;
+    std::vector<glm::vec2> modelUvs;
+    std::vector<glm::vec3> modelNormals;
+    std::vector<int> modelIndices;
+    
+    std::vector<glm::vec3> obstacleVertices;
+    std::vector<glm::vec2> obstacleUvs;
+    std::vector<glm::vec3> obstacleNormals;
+    std::vector<int> obstacleIndices;
     
     GameObject *obstacles[3];
     
@@ -85,6 +101,15 @@ enum
 @synthesize speedChangeCounter;
 @synthesize speedCap;
 @synthesize score;
+@synthesize gameTime;
+@synthesize timeStamp;
+@synthesize invulnTimer;
+@synthesize isInvuln;
+@synthesize youLost;
+@synthesize highScore;
+@synthesize pauseGame;
+@synthesize playHitSound;
+@synthesize firstHit;
 
 - (void)dealloc
 {
@@ -113,10 +138,13 @@ enum
         return;
 
     // ### you should also load any textures needed here (you can use the setupTexture method below to load in a JPEG image and assign it to a GL texture)
-    crateTexture = [self setupTexture:@"crate.jpg"];
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, crateTexture);
+    crateTexture = [self setupTexture:@"RockTexture001_diffuse.png"];
     glUniform1i(glesRenderer.uniforms[UNIFORM_TEXTURE], 0);
+    
+    glActiveTexture(GL_TEXTURE1);
+    shipTexture = [self setupTexture:@"SpaceShipTex.png"];
+    glUniform1i(glesRenderer.uniforms[UNIFORM_TEXTURE], 1);
 
     glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f ); // background color
     glEnable(GL_DEPTH_TEST);
@@ -129,15 +157,29 @@ enum
     float *normals, *texCoords;
     int *indices, numIndices;
     
-    numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
-    g = new GameObject(numIndices, vertices, normals, texCoords, indices);
+    obstacleRotation = 0.0f;
+    obstacleRotationSpeed = 15.0f;
+    
+    //numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
+    auto path = [[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"Spaceship.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"Spaceship.obj"] pathExtension]] cStringUsingEncoding:1];
+    bool res = loadOBJ(path, modelVertices, modelUvs, modelNormals, modelIndices);
+    numIndices = modelVertices.size();
+    g = new GameObject(numIndices, (float*) (&modelVertices[0].x), (float*) (&modelNormals[0].x), (float*) (&modelUvs[0].x), (int*) (&modelIndices[0]));
     //physics.CreateBody(*(g));
-    g->m_textureId = 0; //Set object texture;
+    numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
+    //g = new GameObject(numIndices, vertices, normals, texCoords, indices);
+    g->m_textureId = 1; //Set object texture;
+    
+    path = [[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"Rock.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"Rock.obj"] pathExtension]] cStringUsingEncoding:1];
+    res = loadOBJ(path, obstacleVertices, obstacleUvs, obstacleNormals, obstacleIndices);
+    numIndices = obstacleVertices.size();
     
     for (int i = 0; i < sizeof(obstacles)/sizeof(*obstacles); i++)  {
         printf("%d\n", i);
-        obstacles[i] = new GameObject(numIndices, vertices, normals, texCoords, indices);
+        obstacles[i] = new GameObject(numIndices, (float*) (&obstacleVertices[0].x), (float*) (&obstacleNormals[0].x), (float*) (&obstacleUvs[0].x), (int*) (&obstacleIndices[0]));
         //physics.CreateBody(*(obstacles[i]));
+        obstacles[i]->m_textureId = 0;
+        
     }
  
     
@@ -149,12 +191,20 @@ enum
     diffuseLightPosition = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
     diffuseComponent = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
     
-    transObstacle = 3;
+    transObstacle = -15;
     transCounter = 0.0005f;
     speedChangeCounter = 0;
     speedCap = 0.01f;
     score = 0;
     position.x = 0;
+    gameTime = 0;
+    invulnTimer = 1000;
+    timeStamp = 0;
+    isInvuln = false;
+    youLost = false;
+    pauseGame = false;
+    playHitSound = false;
+    firstHit = true;
     
     for (int i=0; i<3; i++) {
         rNum[i] = rand()%5+1;
@@ -169,6 +219,8 @@ enum
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
     lastTime = currentTime;
     
+    gameTime += elapsedTime;
+
     //physics.Update(elapsedTime);
     // Function used when a collision occurs
     bool hitDetected = false;
@@ -182,16 +234,39 @@ enum
     }
     
     if( hitDetected ) {
-        position.x -= 1;
-        if (position.x <= -3) {
-            position.x = 0;
-            score = 0;
-            printf("Game Over\n");
-        
+        if(gameTime >= timeStamp)isInvuln = false;
+        if(!isInvuln){
+            if (firstHit) {
+                firstHit = false;
+            } else {
+    
+                playHitSound = true;
+                position.x -= 1;
+                isInvuln = true;
+                timeStamp = gameTime + invulnTimer;
+                if (position.x <= -3) {
+                    youLost = true;
+                    if (score > highScore) {
+                        highScore = score;
+                    }
+                    position.x = 0;
+                    score = 0;
+                    transCounter = 0.0005f;
+                    pauseGame = true;
+                    printf("Game Over\n");
+                    
+                }
+            
+            }
         }
     }
-    // Variable for Score - Add to UI
-    score += int(elapsedTime) / 30;
+    
+    
+    if (pauseGame == false) {
+        // Variable for Score - Add to UI
+        score += int(elapsedTime) / 30;
+    }
+    
     //printf("Score: %d \n", score );
     
     // ### do any other updating (e.g., changing the rotation angle of an auto-rotating cube) here
@@ -213,8 +288,9 @@ enum
         //reset position
     }
     
-    
-    transObstacle -= (0.003f + transCounter) * elapsedTime;
+    if (pauseGame == false) {
+        transObstacle -= (0.003f + transCounter) * elapsedTime;
+    }
     
     //float lastRNum = rNum[0];
     
@@ -222,29 +298,19 @@ enum
     if(transObstacle < -14){
         transObstacle = 4;
         for (int i=0; i<3; i++) {
-            //printf("i: %d\n",i);
             rNum[i] = rand()%5+1;
-            //printf("rNum: %d\n", rNum[i]);
             if(i != 0){
-                // printf("rNum[i-1]: %d\n", rNum[i-1]);
-                //printf("rNum: %d\n", rNum[i]);
-                //printf("diff: %d\n", abs(rNum[i-1] - rNum[i]));
                 if (abs(rNum[i-1] - rNum[i]) <= 2) {
                     rNum[i] = rNum[i] + 3;
-                    //printf("Run Here: %d \n", rNum[i]);
-                    
-                    //printf("condition on: %d \n lastRNum: %d \n", rNum[i], lastRNum);
                 }
             }
-            
-            
         }
         
         // Used to cap speed at a certain point.
         // speedChangeCounter changes speed based off how many loops the obstacles ran through.
         if (speedCap >= transCounter) {
             speedChangeCounter += 1;
-            if (speedChangeCounter >= 3) {
+            if (speedChangeCounter >= 2) {
                 transCounter += 0.0005f;
                 speedChangeCounter = 0;
                 printf("transCounter:  %.6f \n", transCounter);
@@ -262,10 +328,12 @@ enum
     normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(mvp), NULL);
     
     g->setPosition(glm::vec3(position.x, position.y, 0));
-   
     
+   
+    obstacleRotation += obstacleRotationSpeed;
     for (int i = 0; i < sizeof(obstacles)/sizeof(*obstacles); i++)  {
         obstacles[i]->setPosition(glm::vec3(transObstacle+rNum[i], i-1, 0));
+        obstacles[i]->setRotation(obstacleRotation);
     }
     
     glesRenderer.aspect = (float)theView.drawableWidth / (float)theView.drawableHeight;

@@ -10,7 +10,7 @@
 GameObject::GameObject(int numIndices, float *vertices, float *normals, float *texCoords, int *indices) {
     m_position = glm::vec3(0.0f);
     m_scale = glm::vec3(1.0f);
-    m_rotation = glm::quat(glm::vec3(0.0f));
+    m_rotation = 0.0f;
     
     updateModelMatrix();
     
@@ -21,8 +21,8 @@ GameObject::GameObject(int numIndices, float *vertices, float *normals, float *t
     m_indices = indices;
 }
 
-void GameObject::setRotation(glm::quat rotation){
-    m_rotation = std::move(rotation);
+void GameObject::setRotation(float rotation){
+    m_rotation = rotation;
     updateModelMatrix();
 }
 
@@ -38,9 +38,9 @@ void GameObject::setScale(glm::vec3 scale){
 }
 
 glm::mat4 GameObject::updateModelMatrix(){
-    glm::mat4 model = glm::translate(glm::mat4(1.0f), m_position)
-    * glm::toMat4(m_rotation);
-    glm::scale(model, m_scale);
+    glm::mat4 model = glm::translate(glm::mat4(1.0f), m_position);
+    model = glm::rotate(model, glm::radians(m_rotation), glm::normalize(glm::vec3(0.5f, -1.2f, 0.8f)));
+    model = glm::scale(model, m_scale);
     m_modelMatrix = model;
     return model;
 }

@@ -23,6 +23,15 @@
 @property float speedChangeCounter;
 @property float speedCap;
 @property int score;
+@property float gameTime;
+@property float timeStamp;
+@property float invulnTimer;
+@property bool isInvuln;
+@property bool youLost;
+@property int highScore;
+@property bool pauseGame;
+@property bool playHitSound;
+@property bool firstHit;
 
 - (void)setup:(GLKView *)view;
 - (void)loadModels;
