@@ -56,7 +56,7 @@ class ViewController: GLKViewController {
     private var glesRenderer: Renderer!     // our own C++ GLES renderer object
     private var button : UIButton!
     private var restartButton : UIButton!
-    private var scoreLabel : UILabel!
+    private var scoreLabel : UILabel?
     private var transformLabel : UILabel!
     private var highscoreLabel : UILabel!
     
@@ -117,13 +117,13 @@ class ViewController: GLKViewController {
         
         //Set up score label
         scoreLabel = UILabel();
-        scoreLabel.text = "Score: " + glesRenderer.score.description;
-        scoreLabel.frame = CGRect(x: 300, y: 10, width: 300, height: 50);
-        scoreLabel.textAlignment = .center;
-        scoreLabel.isEnabled = true;
-        scoreLabel.textColor = .white;
-        scoreLabel.numberOfLines = 1;
-        self.view.addSubview(scoreLabel);
+        scoreLabel?.text = "Score: " + glesRenderer.score.description;
+        scoreLabel?.frame = CGRect(x: 300, y: 10, width: 300, height: 50);
+        scoreLabel?.textAlignment = .center;
+        scoreLabel?.isEnabled = true;
+        scoreLabel?.textColor = .white;
+        scoreLabel?.numberOfLines = 1;
+        self.view.addSubview(scoreLabel ?? highscoreLabel);
         
         highscoreLabel = UILabel();
         highscoreLabel.text = "High Score: " + glesRenderer.highScore.description;
@@ -139,7 +139,7 @@ class ViewController: GLKViewController {
     override func glkView(_ view: GLKView, drawIn rect: CGRect) {
         glesRenderer.draw(rect);    // use our custom GLES renderer object to make the actual GL draw calls
         //glesRenderer.score = glesRenderer.score + 1;
-        scoreLabel.text = "Score: " + glesRenderer.score.description;
+        scoreLabel?.text = "Score: " + glesRenderer.score.description;
         highscoreLabel.text = "High Score: "+UserDefaults.standard.string(forKey: "score")!;
         if (glesRenderer.youLost == true) {
             print("YOU Lost");
