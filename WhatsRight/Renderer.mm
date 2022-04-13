@@ -58,6 +58,8 @@ enum
     std::vector<glm::vec2> modelUvs;
     std::vector<glm::vec3> modelNormals;
     std::vector<int> modelIndices;
+    float obstacleRotation;
+    float obstacleRotationSpeed;
     
     GameObject *obstacles[3];
     
@@ -185,6 +187,9 @@ enum
         rNum[i] = rand()%5+1;
     }
     
+    obstacleRotation = 0.0f;
+    obstacleRotationSpeed = 15.0f;
+    
 }
 
 - (void)update
@@ -295,9 +300,10 @@ enum
     
     g->setPosition(glm::vec3(position.x, position.y, 0));
    
-    
+    obstacleRotation += obstacleRotationSpeed;
     for (int i = 0; i < sizeof(obstacles)/sizeof(*obstacles); i++)  {
         obstacles[i]->setPosition(glm::vec3(transObstacle+rNum[i], i-1, 0));
+        obstacles[i]->setRotation(obstacleRotation);
     }
     
     glesRenderer.aspect = (float)theView.drawableWidth / (float)theView.drawableHeight;

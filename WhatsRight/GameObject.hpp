@@ -23,7 +23,7 @@ public:
     GameObject(int numIndices, float *vertices, float *normals, float *texCoords, int *indices);
 
     void setScale(glm::vec3 scale);
-    void setRotation(glm::quat rotation);
+    void setRotation(float rotation);
     void setPosition(glm::vec3 position);
     
     float *m_vertices;
@@ -34,7 +34,7 @@ public:
 
     glm::vec3 m_position;
     glm::vec3 m_scale;
-    glm::quat m_rotation;
+    float m_rotation;
     glm::mat4 m_modelMatrix;
     
     void setBody(b2Body* body)
