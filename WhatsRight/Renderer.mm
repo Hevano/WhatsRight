@@ -47,6 +47,9 @@ enum
     glm::vec4 diffuseLightPosition;
     glm::vec4 diffuseComponent;
     
+    float obstacleRotation;
+    float obstacleRotationSpeed;
+    
 
     // GL vertex data (minimum X,Y,Z location)
     float *vertices;
@@ -136,7 +139,7 @@ enum
 
     // ### you should also load any textures needed here (you can use the setupTexture method below to load in a JPEG image and assign it to a GL texture)
     glActiveTexture(GL_TEXTURE0);
-    crateTexture = [self setupTexture:@"crate.jpg"];
+    crateTexture = [self setupTexture:@"RockTexture001_diffuse.png"];
     glUniform1i(glesRenderer.uniforms[UNIFORM_TEXTURE], 0);
     
     glActiveTexture(GL_TEXTURE1);
@@ -153,6 +156,9 @@ enum
     // ### add additional vertex data (e.g., vertex normals, texture coordinates, etc.) here
     float *normals, *texCoords;
     int *indices, numIndices;
+    
+    obstacleRotation = 0.0f;
+    obstacleRotationSpeed = 15.0f;
     
     //numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
     auto path = [[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"Spaceship.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"Spaceship.obj"] pathExtension]] cStringUsingEncoding:1];
@@ -304,7 +310,7 @@ enum
         // speedChangeCounter changes speed based off how many loops the obstacles ran through.
         if (speedCap >= transCounter) {
             speedChangeCounter += 1;
-            if (speedChangeCounter >= 3) {
+            if (speedChangeCounter >= 2) {
                 transCounter += 0.0005f;
                 speedChangeCounter = 0;
                 printf("transCounter:  %.6f \n", transCounter);
@@ -322,10 +328,12 @@ enum
     normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(mvp), NULL);
     
     g->setPosition(glm::vec3(position.x, position.y, 0));
-   
     
+   
+    obstacleRotation += obstacleRotationSpeed;
     for (int i = 0; i < sizeof(obstacles)/sizeof(*obstacles); i++)  {
         obstacles[i]->setPosition(glm::vec3(transObstacle+rNum[i], i-1, 0));
+        obstacles[i]->setRotation(obstacleRotation);
     }
     
     glesRenderer.aspect = (float)theView.drawableWidth / (float)theView.drawableHeight;
